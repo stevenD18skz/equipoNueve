@@ -12,4 +12,5 @@
     <string name="biometric_no_hardware">Este dispositivo no tiene hardware para huella digital.</string>
     <string name="biometric_not_enrolled">No hay huellas digitales registradas. Por favor, configure la autenticación por huella en los ajustes de su dispositivo.</string>
     <string name="navigate_to_home_admin_citas">Navegando al Home...</string> <string name="home_fragment_label">Home Administrador de Citas</string>
+    <string name="home_placeholder">Home Placeholder</string>
 </resources>
