@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.dogapp.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.dogapp.home.HomeFragment"
+        android:label="@string/home_fragment_label"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_newAppointmentFragment"
+            app:destination="@id/newAppointmentFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_appointmentDetailFragment"
+            app:destination="@id/appointmentDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newAppointmentFragment"
+        android:name="com.example.dogapp.newappointment.NewAppointmentFragment"
+        android:label="Nueva Cita" tools:layout="@layout/fragment_new_appointment" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/appointmentDetailFragment"
+        android:name="com.example.dogapp.detail.AppointmentDetailFragment"
+        android:label="Detalle Cita" tools:layout="@layout/fragment_appointment_detail" >
+        <argument
+            android:name="appointmentId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/editAppointmentFragment"
+        android:name="com.example.dogapp.edit.EditAppointmentFragment"
+        android:label="Editar Cita"
+        tools:layout="@layout/fragment_edit_appointment" >
+        <argument
+            android:name="appointmentId"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+    </fragment>
+
+</navigation>

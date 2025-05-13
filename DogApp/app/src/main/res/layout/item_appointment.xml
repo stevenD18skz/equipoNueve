@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+
+        <!-- Imagen circular de la mascota -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardViewPetImage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:cardCornerRadius="35dp"
+            app:cardElevation="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/imageViewPet"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/pet_image_description"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_pet_placeholder" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Nombre de la mascota -->
+        <TextView
+            android:id="@+id/textViewPetName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/cardViewPetImage"
+            app:layout_constraintEnd_toStartOf="@id/textViewAppointmentTurn"
+            app:layout_constraintTop_toTopOf="@id/cardViewPetImage"
+            tools:text="Cory" />
+
+        <!-- Síntoma o descripción breve -->
+        <TextView
+            android:id="@+id/textViewSymptom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            app:layout_constraintStart_toStartOf="@id/textViewPetName"
+            app:layout_constraintEnd_toEndOf="@id/textViewPetName"
+            app:layout_constraintTop_toBottomOf="@id/textViewPetName"
+            app:layout_constraintBottom_toBottomOf="@id/cardViewPetImage"
+            tools:text="Fractura extremidad" />
+
+        <!-- Turno de la cita -->
+        <TextView
+            android:id="@+id/textViewAppointmentTurn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            android:textColor="@color/pink_accent"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="#1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
