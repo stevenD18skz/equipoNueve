@@ -6,7 +6,7 @@
     <color name="dark_grey_background">#20282f</color>
     <color name="dog_app_title_color">#FFFFFF</color>
     <color name="biometric_button_cancel">#808080</color>
-    <color name="pink_accent">#ee575f</color>
+    <color name="pink_accent">#F05861</color>
     <color name="md_theme_light_primary">#6750A4</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
     <color name="md_theme_dark_primary">#D0BCFF</color>
@@ -22,18 +22,17 @@
 
 
 
-    <string name="detail_toolbar_title_placeholder">Nombre Mascota</string>
-    <string name="detail_label_owner">Propietario:</string>
-    <string name="detail_label_phone">Teléfono:</string>
-    <string name="detail_delete_fab_description">Eliminar cita</string>
-    <string name="detail_edit_fab_description">Editar cita</string>
-    <string name="appointment_image_description">Imagen de la mascota</string>
-    <string name="appointment_deleted_message">Cita eliminada (simulado)</string>
-    <string name="navigate_to_edit_appointment">Abrir pantalla de edición para cita %d</string>
 
 
     <color name="purple_highlight">#6750A4</color> <color name="grey_hint">#888888</color>
     <color name="grey_disabled_button">#CCCCCC</color>
+
+
+    <color name="dark_gray_header">#FF363636</color>
+
+    <color name="dark_gray_toolbar">#FF424242</color>
+
+
 
 
 

@@ -33,6 +33,21 @@
 
 
 
+    <string name="detail_toolbar_title_placeholder">Nombre Mascota</string>
+    <string name="detail_label_owner">Propietario:</string>
+    <string name="detail_label_phone">Teléfono:</string>
+    <string name="detail_delete_fab_description">Eliminar cita</string>
+    <string name="detail_edit_fab_description">Editar cita</string>
+    <string name="appointment_image_description">Imagen de la mascota</string>
+    <string name="appointment_deleted_message">Cita eliminada (simulado)</string>
+    <string name="navigate_to_edit_appointment">Abrir pantalla de edición para cita %d</string>
+
+
+
+
+
+
+
 
 
 
