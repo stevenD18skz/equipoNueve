@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+
+    // Aplico Safe Args aquí:
+    id("androidx.navigation.safeargs.kotlin")
 }
 
 android {
@@ -59,6 +62,10 @@ dependencies {
 
     // Biometric authentication
     implementation(libs.androidx.biometric.ktx)
+
+    // Coil (para cargar imágenes - opcional para HU 2.0, pero útil para después)
+    implementation(libs.coil) // Usa la versión estable más reciente
+
 
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)

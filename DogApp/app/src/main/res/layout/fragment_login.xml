@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_grey_background"
-    tools:context=".ui.login.LoginFragment">
+    tools:context=".login.LoginFragment">
 
     <ImageView
         android:id="@+id/imageViewDogHead"

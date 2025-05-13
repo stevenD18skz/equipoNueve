@@ -1,4 +1,4 @@
-package com.example.dogapp.login // Reemplaza con tu package name
+package com.example.dogapp.login
 
 import android.os.Bundle
 import android.util.Log
