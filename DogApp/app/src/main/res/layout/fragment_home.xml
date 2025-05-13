@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/white_background_home"
     tools:context=".home.HomeFragment">
 
     <!-- HEADER -->
@@ -86,15 +86,16 @@
         tools:visibility="visible" />
 
     <!-- BOTÓN DE NUEVA CITA -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/fabAddAppointment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_margin="@dimen/spacing_16"
         android:contentDescription="@string/home_fab_add_description"
-        app:srcCompat="@drawable/ic_add"
+        android:background="@drawable/rounded_square_button"
+        app:icon="@drawable/ic_add"
+        app:iconTint="@color/white"
         app:backgroundTint="@color/pink_accent"
-        app:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

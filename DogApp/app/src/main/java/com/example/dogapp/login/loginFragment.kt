@@ -117,11 +117,6 @@ class LoginFragment : Fragment() {
             BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
                 Log.e("BIOMETRIC_LOGIN", "The user hasn't associated any biometric credentials with their account.")
                 Toast.makeText(requireContext(), getString(R.string.biometric_not_enrolled), Toast.LENGTH_LONG).show()
-                // Opcional: Ofrecer al usuario ir a los ajustes para enrolar una huella
-                // val enrollIntent = Intent(Settings.ACTION_BIOMETRIC_ENROLL).apply {
-                //     putExtra(Settings.EXTRA_BIOMETRIC_AUTHENTICATORS_ALLOWED, BIOMETRIC_STRONG or DEVICE_CREDENTIAL)
-                // }
-                // startActivity(enrollIntent)
             }
             else -> {
                 Log.e("BIOMETRIC_LOGIN", "Biometric status unknown or other error.")

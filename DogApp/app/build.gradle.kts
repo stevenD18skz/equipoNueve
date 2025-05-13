@@ -66,6 +66,8 @@ dependencies {
     // Coil (para cargar imágenes - opcional para HU 2.0, pero útil para después)
     implementation(libs.coil) // Usa la versión estable más reciente
 
+    implementation(libs.material.v190) // o la última versión
+
 
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)

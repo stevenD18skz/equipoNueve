@@ -17,8 +17,14 @@
 
     <!-- Home Strings -->
     <string name="home_placeholder">Home Placeholder</string>
-    <string name="home_header_title">Home Placeholder</string>
+
     <string name="pet_image_description">Home Placeholder</string>
-    <string name="home_empty_list_message">Home Placeholder</string>
-    <string name="home_fab_add_description">Home Placeholder</string>
+
+
+
+    <string name="home_header_title">Administrador de Citas</string>
+    <string name="home_empty_list_message">No hay citas registradas todavía.</string>
+    <string name="home_fab_add_description">Añadir nueva cita</string>
+    <string name="navigate_to_new_appointment">Abrir pantalla de nueva cita</string>
+    <string name="navigate_to_appointment_detail">Ver detalle de la cita %d</string>
 </resources>

@@ -3,9 +3,9 @@ package com.example.dogapp.home // Ajusta tu package name
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.dogapp.model.Appointment // Importa la clase de datos simple
+import com.example.dogapp.model.Appointment
 
-// Cambiamos a ViewModel ya que no necesitamos el Context para la DB
+
 class HomeViewModel : ViewModel() {
 
     // Usamos MutableLiveData para poder asignarle los datos mock
