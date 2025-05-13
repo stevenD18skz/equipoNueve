@@ -3,8 +3,11 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <color name="dark_grey_background">#303030</color> <color name="dog_app_title_color">#FFFFFF</color>
-    <color name="biometric_button_cancel">#808080</color> <color name="pink_accent">#F05861</color> <color name="md_theme_light_primary">#6750A4</color>
+    <color name="dark_grey_background">#1e282d</color>
+    <color name="dog_app_title_color">#FFFFFF</color>
+    <color name="biometric_button_cancel">#808080</color>
+    <color name="pink_accent">#F05861</color>
+    <color name="md_theme_light_primary">#6750A4</color>
     <color name="md_theme_light_onPrimary">#FFFFFF</color>
     <color name="md_theme_dark_primary">#D0BCFF</color>
     <color name="md_theme_dark_onPrimary">#381E72</color>
