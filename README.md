@@ -1,6 +1,6 @@
 # DogApp - Agenda de Citas para Mascotas 🐾
 
-![DogApp Logo](app/src/main/res/mipmap-xxxhdpi/ic_dogapp.png) **Miniproyecto 1 - Sprint 1**
+![DogApp Logo](app/src/main/res/drawable/img_dog_head.png) **Miniproyecto 1 - Sprint 1**
 **Curso:** Desarrollo de Aplicaciones para Dispositivos Móviles
 **Institución:** Universidad del Valle - Sede Cali
 **Profesor:** Ing. Walter Medina
