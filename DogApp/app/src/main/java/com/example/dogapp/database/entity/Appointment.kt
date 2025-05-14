@@ -1,4 +1,4 @@
-package com.example.dogapp.database.entity // Ajusta tu package name
+package com.example.dogapp.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,4 +1,4 @@
-package com.example.dogapp.database // Ajusta tu package name
+package com.example.dogapp.database
 
 import android.content.Context
 import androidx.room.Database
@@ -23,7 +23,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "dogapp_database"
                 )
-                    .fallbackToDestructiveMigration() // ¡Cuidado en producción!
+                    .fallbackToDestructiveMigration(false)
                     .build()
                 INSTANCE = instance
                 instance
