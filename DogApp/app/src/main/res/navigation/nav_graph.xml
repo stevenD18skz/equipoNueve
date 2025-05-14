@@ -57,4 +57,94 @@
             android:defaultValue="-1"/>
     </fragment>
 
+    <fragment
+        android:id="@+id/appointmentDetailFragment"
+        android:name="com.example.dogapp.detail.AppointmentDetailFragment"
+        android:label="Detalle Cita"
+        tools:layout="@layout/fragment_appointment_detail" >
+        <argument
+            android:name="appointmentId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_appointmentDetailFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/> <action
+        android:id="@+id/action_appointmentDetailFragment_to_editAppointmentFragment"
+        app:destination="@id/editAppointmentFragment" >
+        <argument
+            android:name="appointmentId"
+            app:argType="integer" />
+    </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/editAppointmentFragment"
+        android:name="com.example.dogapp.edit.EditAppointmentFragment"
+        android:label="Editar Cita"
+        tools:layout="@layout/fragment_edit_appointment" >
+        <argument
+            android:name="appointmentId"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+        <action
+            android:id="@+id/action_editAppointmentFragment_to_homeFragment_after_edit"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/newAppointmentFragment"
+        android:name="com.example.dogapp.newappointment.NewAppointmentFragment"
+        android:label="Nueva Cita"
+        tools:layout="@layout/fragment_new_appointment" >
+
+        <!-- Agrega esta acción -->
+        <action
+            android:id="@+id/action_newAppointmentFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/newAppointmentFragment"
+        android:name="com.example.dogapp.newappointment.NewAppointmentFragment"
+        android:label="Nueva Cita"
+        tools:layout="@layout/fragment_new_appointment" >
+
+        <!-- Agrega esta acción -->
+        <action
+            android:id="@+id/action_newAppointmentFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/editAppointmentFragment"
+        android:name="com.example.dogapp.edit.EditAppointmentFragment"
+        android:label="@string/edit_appointment_toolbar_title" tools:layout="@layout/fragment_edit_appointment" >
+        <argument
+            android:name="appointmentId"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+        <action
+            android:id="@+id/action_editAppointmentFragment_to_appointmentDetailFragment"
+            app:destination="@id/appointmentDetailFragment"
+            app:popUpTo="@id/appointmentDetailFragment"
+            app:popUpToInclusive="true"/> <action
+        android:id="@+id/action_editAppointmentFragment_to_homeFragment_after_edit"
+        app:destination="@id/homeFragment"
+        app:popUpTo="@id/homeFragment"
+        app:popUpToInclusive="true"/>
+    </fragment>
+
+
+
+
 </navigation>
