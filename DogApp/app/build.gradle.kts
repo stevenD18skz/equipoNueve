@@ -69,6 +69,12 @@ dependencies {
     implementation(libs.material.v190) // o la última versión
 
 
+        implementation(libs.retrofit)
+        implementation(libs.converter.gson)
+        implementation(libs.logging.interceptor)
+
+
+
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)

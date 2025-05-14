@@ -13,15 +13,12 @@
     <string name="biometric_not_available">Autenticación biométrica no disponible en este dispositivo.</string>
     <string name="biometric_no_hardware">Este dispositivo no tiene hardware para huella digital.</string>
     <string name="biometric_not_enrolled">No hay huellas digitales registradas. Por favor, configure la autenticación por huella en los ajustes de su dispositivo.</string>
-    <string name="navigate_to_home_admin_citas">Navegando al Home...</string> <string name="home_fragment_label">Home Administrador de Citas</string>
+    <string name="navigate_to_home_admin_citas">Navegando al Home…</string>
+    <string name="home_fragment_label">Home Administrador de Citas</string>
 
     <!-- Home Strings -->
     <string name="home_placeholder">Home Placeholder</string>
-
     <string name="pet_image_description">Home Placeholder</string>
-
-
-
     <string name="home_header_title">Administrador de Citas</string>
     <string name="home_empty_list_message">No hay citas registradas todavía.</string>
     <string name="home_fab_add_description">Añadir nueva cita</string>
@@ -31,8 +28,7 @@
     <string name="detalle_cita_hu_4_0_placeholder">Detalle Cita (HU 4.0) - Placeholder</string>
     <string name="editar_cita_hu_5_0_placeholder">Editar Cita (HU 5.0) - Placeholder</string>
 
-
-
+    <!-- Detail Strings -->
     <string name="detail_toolbar_title_placeholder">Nombre Mascota</string>
     <string name="detail_label_owner">Propietario:</string>
     <string name="detail_label_phone">Teléfono:</string>
@@ -42,24 +38,19 @@
     <string name="appointment_deleted_message">Cita eliminada (simulado)</string>
     <string name="navigate_to_edit_appointment">Abrir pantalla de edición para cita %d</string>
 
-
-
-
-
-
-
-
-
-
-
-
-
+    <!-- New Appointment Strings -->
     <string name="new_appointment_toolbar_title">Nueva Cita</string>
     <string name="hint_pet_name">Nombre de la Mascota</string>
     <string name="hint_breed">Raza</string>
     <string name="hint_owner_name">Nombre del Propietario</string>
     <string name="hint_phone">Teléfono</string>
-    <string name="symptoms_hint">Síntomas</string> <string name="button_save_appointment">Guardar Cita</string>
+    <string name="symptoms_hint">Síntomas</string>
+    <string name="button_save_appointment">Guardar Cita</string>
     <string name="save_appointment_success">Cita guardada (simulado)</string>
     <string name="error_select_symptom">Selecciona un síntoma</string>
+
+    <!-- Edit Strings -->
+    <string name="edit_appointment_toolbar_title">Editar Cita</string>
+    <string name="button_edit_appointment">Editar Cita</string>
+    <string name="edit_appointment_success">Cita editada (simulado)</string>
 </resources>

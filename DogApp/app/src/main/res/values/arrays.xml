@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="symptom_array">
-        <item>"@string/symptoms_hint</item>
+        <item>Sintomas</item>
         <item>Solo duerme</item>
         <item>No come</item>
         <item>Fractura extremidad</item>

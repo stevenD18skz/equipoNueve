@@ -7,6 +7,10 @@ import androidx.lifecycle.map
 
 import com.example.dogapp.model.Appointment
 
+import androidx.lifecycle.*
+import com.example.dogapp.data.remote.RetrofitClient
+import kotlinx.coroutines.launch
+
 
 class NewAppointmentViewModel : ViewModel() {
 
@@ -24,7 +28,7 @@ class NewAppointmentViewModel : ViewModel() {
     // LiveData para habilitar/deshabilitar el botón Guardar
     // Criterio 7 y 9: Habilitado si los campos obligatorios no están vacíos
     // LiveData para habilitar/deshabilitar el botón Guardar
-// Criterio 7 y 9: Habilitado si los campos obligatorios no están vacíos
+    // Criterio 7 y 9: Habilitado si los campos obligatorios no están vacíos
     val isSaveButtonEnabled: LiveData<Boolean> = petName.map { it.orEmpty().isNotBlank() } // it.orEmpty() para asegurar que isNotBlank se llama en un String no nulo
         .combineWith(breed) { nameValid, breedText ->
             // Si nameValid es null, lo tratamos como false.
@@ -47,28 +51,25 @@ class NewAppointmentViewModel : ViewModel() {
     private val _navigateToHome = MutableLiveData<Boolean>()
     val navigateToHome: LiveData<Boolean> get() = _navigateToHome
 
+    // Reemplaza la lista mock con esta implementación
     init {
-        loadMockBreeds()
+        loadBreeds()
     }
 
-    private fun loadMockBreeds() {
-        // Simulación de la respuesta de la API https://dog.ceo/api/breeds/list/all
-        _breedList.value = listOf(
-            "affenpinscher", "african", "airedale", "akita", "appenzeller", "australian", "basenji",
-            "beagle", "bluetick", "borzoi", "bouvier", "boxer", "brabancon", "briard", "bulldog",
-            "bullterrier", "cairn", "cattledog", "chihuahua", "chow", "clumber", "cockapoo",
-            "collie", "coonhound", "corgi", "cotondetulear", "dachshund", "dalmatian", "dane",
-            "deerhound", "dhole", "dingo", "doberman", "elkhound", "entlebucher", "eskimo",
-            "finnish", "frise", "germanshepherd", "greyhound", "groenendael", "havanese",
-            "hound", "husky", "keeshond", "kelpie", "komondor", "kuvasz", "labradoodle",
-            "labrador", "leonberg", "lhasa", "malamute", "malinois", "maltese", "mastiff",
-            "mexicanhairless", "mix", "mountain", "newfoundland", "otterhound", "ovcharka",
-            "papillon", "pekinese", "pembroke", "pinscher", "pitbull", "pointer", "pomeranian",
-            "poodle", "pug", "puggle", "pyrenees", "redbone", "retriever", "ridgeback",
-            "rottweiler", "saluki", "samoyed", "schipperke", "schnauzer", "setter", "sharpei",
-            "sheepdog", "shiba", "shihtzu", "spaniel", "springer", "stbernard", "terrier",
-            "tervuren", "vizsla", "waterdog", "weimaraner", "whippet", "wolfhound"
-        )
+    private fun loadBreeds() {
+        viewModelScope.launch {
+            try {
+                val response = RetrofitClient.dogCeoApiService.getAllBreeds()
+                if (response.isSuccessful) {
+                    val breeds = response.body()?.message?.keys?.toList() ?: emptyList()
+                    _breedList.postValue(breeds.sorted()) // Orden alfabético
+                } else {
+                    _breedList.postValue(emptyList())
+                }
+            } catch (e: Exception) {
+                _breedList.postValue(emptyList())
+            }
+        }
     }
 
     // Criterio 10: Simula guardar la cita

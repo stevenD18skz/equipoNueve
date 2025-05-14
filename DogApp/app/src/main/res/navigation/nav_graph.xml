@@ -125,4 +125,26 @@
 
     </fragment>
 
+    <fragment
+        android:id="@+id/editAppointmentFragment"
+        android:name="com.example.dogapp.edit.EditAppointmentFragment"
+        android:label="@string/edit_appointment_toolbar_title" tools:layout="@layout/fragment_edit_appointment" >
+        <argument
+            android:name="appointmentId"
+            app:argType="integer"
+            android:defaultValue="-1"/>
+        <action
+            android:id="@+id/action_editAppointmentFragment_to_appointmentDetailFragment"
+            app:destination="@id/appointmentDetailFragment"
+            app:popUpTo="@id/appointmentDetailFragment"
+            app:popUpToInclusive="true"/> <action
+        android:id="@+id/action_editAppointmentFragment_to_homeFragment_after_edit"
+        app:destination="@id/homeFragment"
+        app:popUpTo="@id/homeFragment"
+        app:popUpToInclusive="true"/>
+    </fragment>
+
+
+
+
 </navigation>
