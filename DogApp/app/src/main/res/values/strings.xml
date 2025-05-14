@@ -27,4 +27,39 @@
     <string name="home_fab_add_description">Añadir nueva cita</string>
     <string name="navigate_to_new_appointment">Abrir pantalla de nueva cita</string>
     <string name="navigate_to_appointment_detail">Ver detalle de la cita %d</string>
+    <string name="nueva_cita_hu_3_0_placeholder">Nueva Cita (HU 3.0) - Placeholder</string>
+    <string name="detalle_cita_hu_4_0_placeholder">Detalle Cita (HU 4.0) - Placeholder</string>
+    <string name="editar_cita_hu_5_0_placeholder">Editar Cita (HU 5.0) - Placeholder</string>
+
+
+
+    <string name="detail_toolbar_title_placeholder">Nombre Mascota</string>
+    <string name="detail_label_owner">Propietario:</string>
+    <string name="detail_label_phone">Teléfono:</string>
+    <string name="detail_delete_fab_description">Eliminar cita</string>
+    <string name="detail_edit_fab_description">Editar cita</string>
+    <string name="appointment_image_description">Imagen de la mascota</string>
+    <string name="appointment_deleted_message">Cita eliminada (simulado)</string>
+    <string name="navigate_to_edit_appointment">Abrir pantalla de edición para cita %d</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <string name="new_appointment_toolbar_title">Nueva Cita</string>
+    <string name="hint_pet_name">Nombre de la Mascota</string>
+    <string name="hint_breed">Raza</string>
+    <string name="hint_owner_name">Nombre del Propietario</string>
+    <string name="hint_phone">Teléfono</string>
+    <string name="symptoms_hint">Síntomas</string> <string name="button_save_appointment">Guardar Cita</string>
+    <string name="save_appointment_success">Cita guardada (simulado)</string>
+    <string name="error_select_symptom">Selecciona un síntoma</string>
 </resources>

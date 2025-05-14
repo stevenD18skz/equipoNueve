@@ -93,9 +93,7 @@ class LoginFragment : Fragment() {
         promptInfo = BiometricPrompt.PromptInfo.Builder()
             .setTitle(getString(R.string.biometric_title))
             .setSubtitle(getString(R.string.biometric_subtitle))
-            .setNegativeButtonText(getString(R.string.biometric_cancel_button)) // Botón cancelar
-            // También puedes usar .setConfirmationRequired(false)
-            // O .setDeviceCredentialAllowed(true) si quieres permitir PIN/Patrón/Contraseña como fallback
+            .setNegativeButtonText(getString(R.string.biometric_cancel_button))
             .build()
     }
 
