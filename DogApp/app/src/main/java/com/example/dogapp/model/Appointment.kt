@@ -9,3 +9,4 @@ data class Appointment(
     val symptoms: String,
     val petImageUrl: String? = null
 )
+

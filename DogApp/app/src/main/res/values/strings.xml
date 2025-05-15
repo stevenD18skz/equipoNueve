@@ -2,7 +2,7 @@
     <!-- Main Strings -->
     <string name="app_name">DogApp</string>
     <string name="dog_app_title">DogApp</string>
-    <string name="dog_head_description">descripcionnnnnnnnnnnnnn</string>
+    <string name="dog_head_description">Aplicación para la gestión de citas veterinarias</string>
 
     <!-- Login Strings -->
     <string name="biometric_title">Autenticación con Biometría</string>
@@ -14,7 +14,6 @@
     <string name="biometric_no_hardware">Este dispositivo no tiene hardware para huella digital.</string>
     <string name="biometric_not_enrolled">No hay huellas digitales registradas. Por favor, configure la autenticación por huella en los ajustes de su dispositivo.</string>
     <string name="navigate_to_home_admin_citas">Navegando al Home…</string>
-    <string name="home_fragment_label">Home Administrador de Citas</string>
 
     <!-- Home Strings -->
     <string name="home_placeholder">Home Placeholder</string>
@@ -53,4 +52,17 @@
     <string name="edit_appointment_toolbar_title">Editar Cita</string>
     <string name="button_edit_appointment">Editar Cita</string>
     <string name="edit_appointment_success">Cita editada (simulado)</string>
+
+
+    <!-- Navigation Strings -->
+    <string name="login_fragment_label">Login</string>
+    <string name="detail_appointment_toolbar_title">Login</string>
+    <string name="home_fragment_label">Home</string>
+    <string name="new_appointment_fragment_label">New Appointment</string>
+    <string name="appointment_detail_fragment_label">Appointment Detail</string>
+
+
+
+
+
 </resources>

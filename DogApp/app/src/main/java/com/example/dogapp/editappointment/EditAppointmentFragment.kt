@@ -1,5 +1,7 @@
-package com.example.dogapp.edit // Ajusta tu package name
+// src/main/java/com/example/dogapp/editappointment/EditAppointmentFragment.kt
+package com.example.dogapp.editappointment
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +15,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.dogapp.R
-import com.example.dogapp.databinding.FragmentEditAppointmentBinding
+import com.example.dogapp.databinding.FragmentAppointmentEditBinding
+
+
 
 class EditAppointmentFragment : Fragment() {
 
-    private var _binding: FragmentEditAppointmentBinding? = null
+    private var _binding: FragmentAppointmentEditBinding? = null
     private val binding get() = _binding!!
 
     private val viewModel: EditAppointmentViewModel by viewModels()
@@ -27,30 +31,35 @@ class EditAppointmentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentEditAppointmentBinding.inflate(inflater, container, false)
+        _binding = FragmentAppointmentEditBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // El ID ya es accesible a través de args.appointmentId
-        // y el ViewModel lo carga en su init.
+        // Inicializa ViewModel con el ID de Safe Args
+        viewModel.init(args.appointmentId)
 
-        setupInputListeners()
         setupBreedAutoComplete()
+        setupInputListeners()
         observeViewModel()
         setupClickListeners()
     }
 
     private fun setupBreedAutoComplete() {
         viewModel.breedList.observe(viewLifecycleOwner) { breeds ->
-            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, breeds)
+            val adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line,
+                breeds
+            )
             (binding.tilEditBreed.editText as? AutoCompleteTextView)?.setAdapter(adapter)
         }
-        (binding.tilEditBreed.editText as? AutoCompleteTextView)?.doOnTextChanged { text, _, _, _ ->
-            viewModel.breed.value = text.toString()
-        }
+        (binding.tilEditBreed.editText as? AutoCompleteTextView)
+            ?.doOnTextChanged { text, _, _, _ ->
+                viewModel.breed.value = text.toString()
+            }
     }
 
     private fun setupInputListeners() {
@@ -66,16 +75,16 @@ class EditAppointmentFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        // Observar los datos originales para pre-rellenar una vez
+        // Rellenar campos iniciales
         viewModel.petName.observe(viewLifecycleOwner) { name ->
-            // Evitar sobreescribir si el usuario ya está editando
             if (binding.etEditPetName.text.toString() != name) {
                 binding.etEditPetName.setText(name)
             }
         }
         viewModel.breed.observe(viewLifecycleOwner) { breed ->
-            if ((binding.tilEditBreed.editText as? AutoCompleteTextView)?.text.toString() != breed) {
-                (binding.tilEditBreed.editText as? AutoCompleteTextView)?.setText(breed, false) // false para no filtrar de nuevo
+            val field = binding.tilEditBreed.editText as? AutoCompleteTextView
+            if (field?.text.toString() != breed) {
+                field?.setText(breed, false)
             }
         }
         viewModel.ownerName.observe(viewLifecycleOwner) { owner ->
@@ -89,47 +98,49 @@ class EditAppointmentFragment : Fragment() {
             }
         }
 
+        // Habilitar/deshabilitar botón
+        viewModel.isEditButtonEnabled.observe(viewLifecycleOwner) { enabled ->
+            binding.buttonUpdateAppointment.isEnabled = enabled
+            binding.buttonUpdateAppointment.setTypeface(
+                null,
+                if (enabled) Typeface.BOLD else Typeface.NORMAL
+            )
+        }
 
-        // Observar estado del botón Editar
-        viewModel.isEditButtonEnabled.observe(viewLifecycleOwner) { isEnabled ->
-            binding.buttonUpdateAppointment.isEnabled = isEnabled
-            if (isEnabled) { // Criterio 7 y 8
-                binding.buttonUpdateAppointment.setTypeface(null, android.graphics.Typeface.BOLD)
-            } else {
-                binding.buttonUpdateAppointment.setTypeface(null, android.graphics.Typeface.NORMAL)
+        // Navegar a Home tras guardar
+        viewModel.navigateToHome.observe(viewLifecycleOwner) { goHome ->
+            if (goHome) {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.edit_appointment_success),
+                    Toast.LENGTH_SHORT
+                ).show()
+                findNavController().navigate(
+                    EditAppointmentFragmentDirections
+                        .actionEditAppointmentFragmentToHomeFragment()
+                )
+                viewModel.onHomeNavigated()
             }
         }
 
-        // Observar evento para navegar al Home
-        viewModel.navigateToHome.observe(viewLifecycleOwner) { navigate ->
-            if (navigate) {
-                Toast.makeText(requireContext(), getString(R.string.edit_appointment_success), Toast.LENGTH_SHORT).show()
-                // Criterio 8: Navegar a Home (HU 2.0)
-                findNavController().navigate(R.id.action_editAppointmentFragment_to_homeFragment_after_edit)
-                viewModel.onNavigationToHomeComplete()
-            }
-        }
-
-        // Observar evento para navegar al Detalle (botón atrás de la toolbar)
-        viewModel.navigateToDetail.observe(viewLifecycleOwner) { appointmentId ->
-            appointmentId?.let {
-                // Criterio 1: Navegar a Detalle (HU 4.0)
-                val action = EditAppointmentFragmentDirections.actionEditAppointmentFragmentToAppointmentDetailFragment(it)
-                findNavController().navigate(action)
-                viewModel.onNavigationToDetailComplete()
+        // Navegar al detalle si presionan atrás en toolbar
+        viewModel.navigateToDetail.observe(viewLifecycleOwner) { id ->
+            id?.let {
+                findNavController().navigate(
+                    EditAppointmentFragmentDirections
+                        .actionEditAppointmentFragmentToAppointmentDetailFragment(it)
+                )
+                viewModel.onDetailNavigated()
             }
         }
     }
 
     private fun setupClickListeners() {
-        // Botón Editar Cita
         binding.buttonUpdateAppointment.setOnClickListener {
             viewModel.updateAppointment()
         }
-
-        // Botón Atrás en la Toolbar
         binding.imageViewEditBackButton.setOnClickListener {
-            viewModel.onToolbarBackClicked()
+            viewModel.onBackPressed()
         }
     }
 

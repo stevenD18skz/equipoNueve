@@ -4,6 +4,8 @@ plugins {
 
     // Aplico Safe Args aquí:
     id("androidx.navigation.safeargs.kotlin")
+
+    id("kotlin-kapt") // O id 'com.google.devtools.ksp' si KSP
 }
 
 android {
@@ -41,6 +43,7 @@ android {
     }
 }
 
+
 dependencies {
 
     implementation(libs.androidx.core.ktx)
@@ -69,9 +72,23 @@ dependencies {
     implementation(libs.material.v190) // o la última versión
 
 
-        implementation(libs.retrofit)
-        implementation(libs.converter.gson)
-        implementation(libs.logging.interceptor)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.logging.interceptor)
+
+
+    // Room Persistence Library (¡ASEGÚRATE QUE ESTÉN ACTIVAS!)
+    implementation (libs.androidx.room.runtime)
+    //kapt(libs.androidx.room.compiler) // O usa 'ksp "androidx.room:room-compiler:$room_version"'
+    implementation (libs.androidx.room.ktx) // Para coroutines y Flow/LiveData support
+
+    // Lifecycle (ya deberían estar)
+    implementation (libs.androidx.lifecycle.viewmodel.ktx.v270)
+    implementation (libs.androidx.lifecycle.livedata.ktx.v270)
+    implementation (libs.androidx.lifecycle.runtime.ktx)
+
+    // Coroutines (ya deberían estar)
+    implementation (libs.kotlinx.coroutines.android)
 
 
 
