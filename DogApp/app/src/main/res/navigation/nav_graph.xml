@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
+    <!-- LOGIN -->
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.dogapp.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        android:label="@string/login_fragment_label"
+        tools:layout="@layout/fragment_login">
+        <!-- Al iniciar sesión, vamos a Home y limpiamos back-stack -->
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -17,134 +20,98 @@
             app:popUpToInclusive="true" />
     </fragment>
 
+    <!-- HOME -->
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.dogapp.home.HomeFragment"
         android:label="@string/home_fragment_label"
         tools:layout="@layout/fragment_home">
+        <!-- Nueva cita -->
         <action
             android:id="@+id/action_homeFragment_to_newAppointmentFragment"
             app:destination="@id/newAppointmentFragment" />
+        <!-- Detalle de cita -->
         <action
             android:id="@+id/action_homeFragment_to_appointmentDetailFragment"
-            app:destination="@id/appointmentDetailFragment" />
+            app:destination="@id/appointmentDetailFragment">
+            <argument
+                android:name="appointmentId"
+                app:argType="integer" />
+        </action>
     </fragment>
 
+    <!-- NUEVA CITA -->
     <fragment
         android:id="@+id/newAppointmentFragment"
         android:name="com.example.dogapp.newappointment.NewAppointmentFragment"
-        android:label="Nueva Cita" tools:layout="@layout/fragment_new_appointment" >
+        android:label="@string/new_appointment_toolbar_title"
+        tools:layout="@layout/fragment_new_appointment">
+        <!-- Tras crear, volvemos a Home y limpiamos back-stack -->
+        <action
+            android:id="@+id/action_newAppointmentFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 
+    <!-- DETALLE DE CITA -->
     <fragment
         android:id="@+id/appointmentDetailFragment"
-        android:name="com.example.dogapp.detail.AppointmentDetailFragment"
-        android:label="Detalle Cita" tools:layout="@layout/fragment_appointment_detail" >
+        android:name="com.example.dogapp.detailappointment.AppointmentDetailFragment"
+        android:label="@string/detail_appointment_toolbar_title"
+        tools:layout="@layout/fragment_appointment_detail">
+
+        <!-- Recibimos el ID de la cita -->
         <argument
             android:name="appointmentId"
             app:argType="integer"
             android:defaultValue="-1" />
-    </fragment>
 
-    <fragment
-        android:id="@+id/editAppointmentFragment"
-        android:name="com.example.dogapp.edit.EditAppointmentFragment"
-        android:label="Editar Cita"
-        tools:layout="@layout/fragment_edit_appointment" >
-        <argument
-            android:name="appointmentId"
-            app:argType="integer"
-            android:defaultValue="-1"/>
-    </fragment>
-
-    <fragment
-        android:id="@+id/appointmentDetailFragment"
-        android:name="com.example.dogapp.detail.AppointmentDetailFragment"
-        android:label="Detalle Cita"
-        tools:layout="@layout/fragment_appointment_detail" >
-        <argument
-            android:name="appointmentId"
-            app:argType="integer"
-            android:defaultValue="-1" />
+        <!-- Borrar cita → Home -->
         <action
             android:id="@+id/action_appointmentDetailFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true"/> <action
-        android:id="@+id/action_appointmentDetailFragment_to_editAppointmentFragment"
-        app:destination="@id/editAppointmentFragment" >
-        <argument
-            android:name="appointmentId"
-            app:argType="integer" />
-    </action>
+            app:popUpToInclusive="true" />
+
+        <!-- Editar cita → EditAppointmentFragment -->
+        <action
+            android:id="@+id/action_appointmentDetailFragment_to_editAppointmentFragment"
+            app:destination="@id/editAppointmentFragment">
+            <argument
+                android:name="appointmentId"
+                app:argType="integer" />
+        </action>
     </fragment>
 
+    <!-- EDITAR CITA -->
     <fragment
         android:id="@+id/editAppointmentFragment"
         android:name="com.example.dogapp.edit.EditAppointmentFragment"
-        android:label="Editar Cita"
-        tools:layout="@layout/fragment_edit_appointment" >
+        android:label="@string/edit_appointment_toolbar_title"
+        tools:layout="@layout/fragment_edit_appointment">
+
+        <!-- Recibimos el ID de la cita -->
         <argument
             android:name="appointmentId"
             app:argType="integer"
-            android:defaultValue="-1"/>
-        <action
-            android:id="@+id/action_editAppointmentFragment_to_homeFragment_after_edit"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true"/>
-    </fragment>
+            android:defaultValue="-1" />
 
-    <fragment
-        android:id="@+id/newAppointmentFragment"
-        android:name="com.example.dogapp.newappointment.NewAppointmentFragment"
-        android:label="Nueva Cita"
-        tools:layout="@layout/fragment_new_appointment" >
-
-        <!-- Agrega esta acción -->
-        <action
-            android:id="@+id/action_newAppointmentFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/newAppointmentFragment"
-        android:name="com.example.dogapp.newappointment.NewAppointmentFragment"
-        android:label="Nueva Cita"
-        tools:layout="@layout/fragment_new_appointment" >
-
-        <!-- Agrega esta acción -->
-        <action
-            android:id="@+id/action_newAppointmentFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
-
-    </fragment>
-
-    <fragment
-        android:id="@+id/editAppointmentFragment"
-        android:name="com.example.dogapp.edit.EditAppointmentFragment"
-        android:label="@string/edit_appointment_toolbar_title" tools:layout="@layout/fragment_edit_appointment" >
-        <argument
-            android:name="appointmentId"
-            app:argType="integer"
-            android:defaultValue="-1"/>
+        <!-- Guardar cambios → detalle (con el mismo ID) -->
         <action
             android:id="@+id/action_editAppointmentFragment_to_appointmentDetailFragment"
-            app:destination="@id/appointmentDetailFragment"
-            app:popUpTo="@id/appointmentDetailFragment"
-            app:popUpToInclusive="true"/> <action
-        android:id="@+id/action_editAppointmentFragment_to_homeFragment_after_edit"
-        app:destination="@id/homeFragment"
-        app:popUpTo="@id/homeFragment"
-        app:popUpToInclusive="true"/>
+            app:destination="@id/appointmentDetailFragment">
+            <argument
+                android:name="appointmentId"
+                app:argType="integer" />
+        </action>
+
+        <!-- O bien volver a Home limpiando back-stack -->
+        <action
+            android:id="@+id/action_editAppointmentFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
-
-
-
 
 </navigation>

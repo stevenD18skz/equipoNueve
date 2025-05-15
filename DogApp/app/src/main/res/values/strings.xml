@@ -53,4 +53,8 @@
     <string name="edit_appointment_toolbar_title">Editar Cita</string>
     <string name="button_edit_appointment">Editar Cita</string>
     <string name="edit_appointment_success">Cita editada (simulado)</string>
+
+
+    <!-- Navigation Strings -->
+
 </resources>
