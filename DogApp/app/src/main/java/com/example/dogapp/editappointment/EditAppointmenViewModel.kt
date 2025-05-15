@@ -1,150 +1,99 @@
-package com.example.dogapp.edit // Ajusta tu package name
+// src/main/java/com/example/dogapp/editappointment/EditAppointmentViewModel.kt
+package com.example.dogapp.editappointment
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.map
-import androidx.lifecycle.viewModelScope
-import com.example.dogapp.data.remote.RetrofitClient
+import androidx.lifecycle.*
 import com.example.dogapp.model.Appointment
-import com.example.dogapp.newappointment.combineWith
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-// Helper function para combinar LiveData (si no la tienes en un archivo utils)
-fun <T, K, R> LiveData<T>.combineWith(
-    liveData: LiveData<K>,
-    block: (T?, K?) -> R
-): LiveData<R> {
-    val result = MutableLiveData<R>()
-    this.observeForever {
-        result.value = block(this.value, liveData.value)
-    }
-    liveData.observeForever {
-        result.value = block(this.value, liveData.value)
-    }
-    return result
-}
+class EditAppointmentViewModel(
+    private val savedStateHandle: SavedStateHandle
+) : ViewModel() {
 
+    // Original para saber ID y datos no editables
+    private val _original = MutableLiveData<Appointment?>()
 
-class EditAppointmentViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
-
-    private val _originalAppointment = MutableLiveData<Appointment?>()
-    // val originalAppointment: LiveData<Appointment?> get() = _originalAppointment // Si se necesita externamente
-
-    // LiveData para los campos editables del formulario
+    // Campos editables
     val petName = MutableLiveData<String>()
     val breed = MutableLiveData<String>()
     val ownerName = MutableLiveData<String>()
     val ownerPhone = MutableLiveData<String>()
-    // Síntomas no son editables en esta HU, pero podríamos necesitarlos si el objeto Appointment se reutiliza
-    // val symptoms = MutableLiveData<String>()
 
-    // Mock data para la lista de razas
-    private val _breedList = MutableLiveData<List<String>>()
-    val breedList: LiveData<List<String>> get() = _breedList
+    // Lista de razas (mock o remoto)
+    private val _breedList = MutableLiveData<List<String>>(listOf(
+        "Beagle", "Dálmata", "Labrador", "Husky" // O cargar de API real
+    ))
+    val breedList: LiveData<List<String>> = _breedList
 
-    // LiveData para habilitar/deshabilitar el botón Guardar
-    val isEditButtonEnabled: LiveData<Boolean> = petName.map { it.orEmpty().isNotBlank() } // it.orEmpty() para asegurar que isNotBlank se llama en un String no nulo
-        .combineWith(breed) { nameValid, breedText ->
-            // Si nameValid es null, lo tratamos como false.
-            // Si breedText es null, isNotBlank() devolverá false.
-            (nameValid ?: false) && (breedText.orEmpty().isNotBlank())
+    // Validación de formulario
+    val isEditButtonEnabled: LiveData<Boolean> = MediatorLiveData<Boolean>().apply {
+        fun validate() {
+            val ok = !petName.value.isNullOrBlank()
+                    && !breed.value.isNullOrBlank()
+                    && !ownerName.value.isNullOrBlank()
+                    && !ownerPhone.value.isNullOrBlank()
+            value = ok
         }
-        .combineWith(ownerName) { prevValid, ownerText ->
-            // Lo mismo para las siguientes combinaciones
-            (prevValid ?: false) && (ownerText.orEmpty().isNotBlank())
-        }
-        .combineWith(ownerPhone) { prevValid, phoneText ->
-            (prevValid ?: false) && (phoneText.orEmpty().isNotBlank())
-        }
+        addSource(petName) { validate() }
+        addSource(breed) { validate() }
+        addSource(ownerName) { validate() }
+        addSource(ownerPhone) { validate() }
+    }
 
-    // Evento para navegar al Home después de editar
+    // Eventos de navegación
     private val _navigateToHome = MutableLiveData<Boolean>()
-    val navigateToHome: LiveData<Boolean> get() = _navigateToHome
+    val navigateToHome: LiveData<Boolean> = _navigateToHome
 
-    // Evento para navegar de vuelta al Detalle (botón atrás de la toolbar)
-    private val _navigateToDetail = MutableLiveData<Int?>() // Contendrá el ID de la cita original
-    val navigateToDetail: LiveData<Int?> get() = _navigateToDetail
+    private val _navigateToDetail = MutableLiveData<Int?>()
+    val navigateToDetail: LiveData<Int?> = _navigateToDetail
 
-
-    init {
-        val appointmentId = savedStateHandle.get<Int>("appointmentId") ?: -1
-        if (appointmentId != -1) {
-            loadMockAppointmentToEdit(appointmentId)
-            loadBreeds()
-        } else {
-            // Manejar caso de ID inválido, quizás navegar atrás o mostrar error
-            _originalAppointment.value = null
-        }
+    /** Llamar desde Fragment en onViewCreated */
+    fun init(appointmentId: Int) {
+        if (_original.value != null) return
+        if (appointmentId >= 0) loadAppointment(appointmentId)
+        else _original.value = null
     }
 
-    private fun loadMockAppointmentToEdit(id: Int) {
-        // Simula la carga de una cita específica desde una lista mock
-        val mockAppointments = listOf(
-            Appointment(1, "Cory", "Beagle", "Juan Pérez", "3001112233", "Fractura extremidad", null),
-            Appointment(2, "Zeus", "Dalmata", "Maria López", "3014445566", "Solo duerme", null),
-            Appointment(3, "Rocky", "Labrador", "Pedro Gómez", "3027778899", "No come", null),
-            Appointment(4, "Luna", "Husky", "Ana Torres", "3109998877", "Tiene pulgas", null)
-            // Asegúrate que estos IDs coincidan con los que navegas desde Home/Detail
-        )
-        val appointmentToEdit = mockAppointments.find { it.id == id }
-        _originalAppointment.value = appointmentToEdit
-
-        // Pre-rellenar los LiveData de los campos
-        appointmentToEdit?.let {
-            petName.value = it.petName
-            breed.value = it.breed
-            ownerName.value = it.ownerName
-            ownerPhone.value = it.ownerPhone
-            // symptoms.value = it.symptoms // Si fuera editable
-        }
-    }
-
-    // Reemplaza la lista mock con esta implementación
-    private fun loadBreeds() {
-        viewModelScope.launch {
-            try {
-                val response = RetrofitClient.dogCeoApiService.getAllBreeds()
-                if (response.isSuccessful) {
-                    val breeds = response.body()?.message?.keys?.toList() ?: emptyList()
-                    _breedList.postValue(breeds.sorted()) // Orden alfabético
-                } else {
-                    _breedList.postValue(emptyList())
-                }
-            } catch (e: Exception) {
-                _breedList.postValue(emptyList())
+    private fun loadAppointment(id: Int) {
+        // Aquí simulas cargar o llamas a repositorio real
+        viewModelScope.launch(Dispatchers.IO) {
+            val mock = listOf(
+                Appointment(1, "Cory", "Beagle", "Juan Pérez", "3001112233", "Fractura", null),
+                Appointment(2, "Zeus", "Dálmata", "María López", "3014445566", "Solo duerme", null),
+                Appointment(3, "Rocky", "Labrador", "Pedro Gómez", "3027778899", "No come", null),
+                Appointment(4, "Luna", "Husky", "Ana Torres", "3109998877", "Tiene pulgas", null)
+            ).find { it.id == id }
+            _original.postValue(mock)
+            mock?.let {
+                petName.postValue(it.petName)
+                breed.postValue(it.breed)
+                ownerName.postValue(it.ownerName)
+                ownerPhone.postValue(it.ownerPhone)
             }
         }
     }
 
     fun updateAppointment() {
-        // Criterio 8: Simula la modificación y navega a Home
-        // En una app real, construirías el objeto Appointment actualizado y lo pasarías al repositorio.
-        val updatedAppointment = Appointment(
-            id = _originalAppointment.value?.id ?: 0, // Mantener el ID original
-            petName = petName.value ?: "",
-            breed = breed.value ?: "",
-            ownerName = ownerName.value ?: "",
-            ownerPhone = ownerPhone.value ?: "",
-            symptoms = _originalAppointment.value?.symptoms ?: "", // Mantener síntomas originales
-            petImageUrl = _originalAppointment.value?.petImageUrl // Mantener imagen original
+        // Aquí harías el PUT/UPDATE real...
+        val updated = _original.value?.copy(
+            petName = petName.value.orEmpty(),
+            breed = breed.value.orEmpty(),
+            ownerName = ownerName.value.orEmpty(),
+            ownerPhone = ownerPhone.value.orEmpty()
         )
-        println("Simulando actualización de cita: $updatedAppointment") // Log para depuración
-
-        _navigateToHome.value = true // Activa el evento de navegación a Home
+        // Log.debug(updated)…
+        _navigateToHome.value = true
     }
 
-    fun onToolbarBackClicked() {
-        _navigateToDetail.value = _originalAppointment.value?.id
+    fun onBackPressed() {
+        _navigateToDetail.value = _original.value?.id
     }
 
-
-    fun onNavigationToHomeComplete() {
+    fun onHomeNavigated() {
         _navigateToHome.value = false
     }
 
-    fun onNavigationToDetailComplete() {
+    fun onDetailNavigated() {
         _navigateToDetail.value = null
     }
 }

@@ -87,7 +87,7 @@
     <!-- EDITAR CITA -->
     <fragment
         android:id="@+id/editAppointmentFragment"
-        android:name="com.example.dogapp.edit.EditAppointmentFragment"
+        android:name="com.example.dogapp.editappointment.EditAppointmentFragment"
         android:label="@string/edit_appointment_toolbar_title"
         tools:layout="@layout/fragment_edit_appointment">
 
