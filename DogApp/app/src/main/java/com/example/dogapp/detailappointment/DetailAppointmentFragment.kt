@@ -1,4 +1,3 @@
-// src/main/java/com/example/dogapp/detailappointment/AppointmentDetailFragment.kt
 package com.example.dogapp.detailappointment
 
 import android.annotation.SuppressLint

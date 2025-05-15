@@ -1,4 +1,3 @@
-// src/main/java/com/example/dogapp/editappointment/EditAppointmentFragment.kt
 package com.example.dogapp.editappointment
 
 import android.graphics.Typeface

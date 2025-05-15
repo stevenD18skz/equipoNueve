@@ -1,4 +1,4 @@
-package com.example.dogapp.home // Ajusta tu package name
+package com.example.dogapp.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -28,7 +28,7 @@ class HomeViewModel : ViewModel() {
                 ownerName = "Juan",
                 ownerPhone = "3001112233",
                 symptoms = "Fractura extremidad",
-                petImageUrl = null // Puedes poner una URL de imagen si quieres probar Coil, ej: "https://..."
+                petImageUrl = null
             ),
             Appointment(
                 id = 2,
@@ -58,18 +58,6 @@ class HomeViewModel : ViewModel() {
                 petImageUrl = null
             )
         )
-        // Asignamos la lista al MutableLiveData
         _appointments.value = mockList
     }
-
-    // Si necesitas simular la carga/eliminación/actualización,
-    // puedes añadir funciones aquí que modifiquen la lista en _appointments.value
-    // Ejemplo (no requerido por ahora):
-    /*
-    fun removeAppointment(appointmentId: Int) {
-        val currentList = _appointments.value?.toMutableList()
-        currentList?.removeAll { it.id == appointmentId }
-        _appointments.value = currentList
-    }
-    */
 }

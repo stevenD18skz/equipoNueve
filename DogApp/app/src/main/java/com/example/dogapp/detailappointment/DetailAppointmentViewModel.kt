@@ -1,14 +1,13 @@
-// src/main/java/com/example/dogapp/detailappointment/AppointmentDetailViewModel.kt
 package com.example.dogapp.detailappointment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
+//import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.dogapp.model.Appointment
 
 class AppointmentDetailViewModel(
-    private val savedStateHandle: SavedStateHandle
+    //private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val _appointment = MutableLiveData<Appointment?>()

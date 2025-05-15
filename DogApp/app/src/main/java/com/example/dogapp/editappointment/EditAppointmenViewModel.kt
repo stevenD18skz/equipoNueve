@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class EditAppointmentViewModel(
-    private val savedStateHandle: SavedStateHandle
+    //private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     // Original para saber ID y datos no editables
@@ -74,14 +74,12 @@ class EditAppointmentViewModel(
     }
 
     fun updateAppointment() {
-        // Aquí harías el PUT/UPDATE real...
         val updated = _original.value?.copy(
             petName = petName.value.orEmpty(),
             breed = breed.value.orEmpty(),
             ownerName = ownerName.value.orEmpty(),
             ownerPhone = ownerPhone.value.orEmpty()
         )
-        // Log.debug(updated)…
         _navigateToHome.value = true
     }
 

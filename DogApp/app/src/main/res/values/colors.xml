@@ -4,7 +4,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- Background-->
-    <color name="white_background_home">#fef6fd</color>
+    <color name="white_background">#fef6fd</color>
     <color name="dark_grey_background">#20282f</color>
 
     <!-- Login-->
@@ -14,22 +14,19 @@
     <color name="pink_accent">#F05861</color>
     <color name="grey_disabled_button">#CCCCCC</color>
 
-    <!-- ToolBar-->
-    <color name="dark_gray_toolbar">#FF424242</color>
-
     <!-- General-->
     <color name="dark_blue_fab">#2A3A8E</color>
     <color name="dark_gray_header">#FF363636</color>
     <color name="purple_highlight">#6750A4</color>
+    <color name="md_theme_dark_onPrimary">#381E72</color>
+    <color name="md_theme_dark_primary">#D0BCFF</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_primary">#6750A4</color>
 
     <!-- Utils-->
     <color name="dog_app_title_color">#FFFFFF</color>
     <color name="ic_launcher_background">#27313A</color>
     <color name="grey_hint">#888888</color>
+    <color name="dark_gray_toolbar">#FF424242</color>
 
-    <!-- Dark-->
-    <color name="md_theme_dark_onPrimary">#381E72</color>
-    <color name="md_theme_dark_primary">#D0BCFF</color>
-    <color name="md_theme_light_onPrimary">#FFFFFF</color>
-    <color name="md_theme_light_primary">#6750A4</color>
 </resources>

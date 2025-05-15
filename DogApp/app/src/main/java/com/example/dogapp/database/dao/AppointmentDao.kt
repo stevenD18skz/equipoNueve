@@ -18,7 +18,6 @@ interface AppointmentDao {
     @Update
     suspend fun updateAppointment(appointment: Appointment)
 
-    // Se puede borrar por objeto o por ID
     @Delete
     suspend fun deleteAppointment(appointment: Appointment)
 

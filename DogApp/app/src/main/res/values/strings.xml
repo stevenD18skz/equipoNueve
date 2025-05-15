@@ -2,7 +2,7 @@
     <!-- Main Strings -->
     <string name="app_name">DogApp</string>
     <string name="dog_app_title">DogApp</string>
-    <string name="dog_head_description">Aplicación para la gestión de citas veterinarias</string>
+    <string name="dog_head_description">Imagen De Ayuda Visualizacion</string>
 
     <!-- Login Strings -->
     <string name="biometric_title">Autenticación con Biometría</string>
@@ -43,7 +43,6 @@
     <string name="hint_breed">Raza</string>
     <string name="hint_owner_name">Nombre del Propietario</string>
     <string name="hint_phone">Teléfono</string>
-    <string name="symptoms_hint">Síntomas</string>
     <string name="button_save_appointment">Guardar Cita</string>
     <string name="save_appointment_success">Cita guardada (simulado)</string>
     <string name="error_select_symptom">Selecciona un síntoma</string>

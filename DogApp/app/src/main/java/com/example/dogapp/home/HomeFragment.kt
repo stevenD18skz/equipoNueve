@@ -1,4 +1,4 @@
-package com.example.dogapp.home // Ajusta tu package name
+package com.example.dogapp.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -40,7 +40,6 @@ class HomeFragment : Fragment() {
         binding.fabAddAppointment.setOnClickListener {
             Toast.makeText(requireContext(), getString(R.string.navigate_to_new_appointment), Toast.LENGTH_SHORT).show()
             // Navega a la pantalla de nueva cita (HU 3.0 - placeholder)
-            // Asegúrate que esta acción exista en nav_graph.xml
             findNavController().navigate(R.id.action_homeFragment_to_newAppointmentFragment)
         }
     }
@@ -54,16 +53,10 @@ class HomeFragment : Fragment() {
             // --- Forma Simplificada de Navegar sin Safe Args por ahora ---
             // Creamos un Bundle para pasar el ID del appointment
             val bundle = Bundle().apply {
-                putInt("appointmentId", appointment.id) // "appointmentId" debe coincidir con el nombre del argumento en nav_graph
+                putInt("appointmentId", appointment.id)
             }
             // Navegamos a la pantalla de detalle (HU 4.0 - placeholder)
-            // Asegúrate que esta acción y el argumento "appointmentId" existan en nav_graph.xml para el destino appointmentDetailFragment
             findNavController().navigate(R.id.action_homeFragment_to_appointmentDetailFragment, bundle)
-
-            // Si Safe Args está configurado y HomeFragmentDirections existe, podrías usar:
-            // val action = HomeFragmentDirections.actionHomeFragmentToAppointmentDetailFragment(appointment.id)
-            // findNavController().navigate(action)
-            // Pero si te da errores, usa la forma con Bundle por ahora.
         }
 
         binding.recyclerViewAppointments.apply {
