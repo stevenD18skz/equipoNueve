@@ -1,4 +1,4 @@
-package com.example.dogapp.repository // Ajusta tu package name
+package com.example.dogapp.repository
 
 import androidx.lifecycle.LiveData
 import com.example.dogapp.database.dao.AppointmentDao

@@ -29,18 +29,20 @@
         app:fontFamily="@font/cool_font_bold"
         app:layout_constraintTop_toBottomOf="@id/imageViewDogHead"  app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="8dp" /> <com.airbnb.lottie.LottieAnimationView
-    android:id="@+id/lottieAnimationViewFingerprint"
-    android:layout_width="150dp"
-    android:layout_height="150dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.498"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/textViewAppTitle"
-    app:layout_constraintVertical_bias="0.5"
-    app:lottie_autoPlay="true"
-    app:lottie_loop="true"
-    app:lottie_rawRes="@raw/fingerprint_animation" />
+        android:layout_marginTop="8dp" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationViewFingerprint"
+        android:layout_width="189dp"
+        android:layout_height="186dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewAppTitle"
+        app:layout_constraintVertical_bias="0.5"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/fingerprint_animation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

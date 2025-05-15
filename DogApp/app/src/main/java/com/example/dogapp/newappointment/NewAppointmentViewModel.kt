@@ -1,10 +1,9 @@
-// src/main/java/com/example/dogapp/newappointment/NewAppointmentViewModel.kt
 package com.example.dogapp.newappointment
 
 import androidx.lifecycle.*
 import com.example.dogapp.model.Appointment
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+//import kotlinx.coroutines.Dispatchers
+//import kotlinx.coroutines.launch
 
 class NewAppointmentViewModel : ViewModel() {
 

@@ -1,4 +1,3 @@
-// src/main/java/com/example/dogapp/newappointment/NewAppointmentFragment.kt
 package com.example.dogapp.newappointment
 
 import android.os.Bundle
