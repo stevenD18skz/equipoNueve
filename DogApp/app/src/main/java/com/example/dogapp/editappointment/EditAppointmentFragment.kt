@@ -15,15 +15,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.dogapp.R
 import com.example.dogapp.databinding.FragmentAppointmentEditBinding
-
-
+// Asegúrate de que el ViewModel se importe correctamente si está en el mismo paquete
+// import com.example.dogapp.editappointment.EditAppointmentViewModel
 
 class EditAppointmentFragment : Fragment() {
 
     private var _binding: FragmentAppointmentEditBinding? = null
     private val binding get() = _binding!!
 
+    // El ViewModel se inicializa y obtiene el appointmentId a través de SavedStateHandle
     private val viewModel: EditAppointmentViewModel by viewModels()
+    // args se usa para obtener el appointmentId si el ViewModel NO usara SavedStateHandle,
+    // pero como sí lo usa, args.appointmentId no es estrictamente necesario pasarlo al ViewModel.
+    // Sin embargo, tenerlo aquí no hace daño si lo usaras para alguna otra lógica inicial en el Fragment.
     private val args: EditAppointmentFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -37,8 +41,10 @@ class EditAppointmentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Inicializa ViewModel con el ID de Safe Args
-        viewModel.init(args.appointmentId)
+        // YA NO ES NECESARIO LLAMAR A viewModel.init()
+        // El ViewModel carga los datos en su propio bloque init usando SavedStateHandle
+        // y el appointmentId que le llega a través de la navegación.
+        // viewModel.init(args.appointmentId) // <<<--- ELIMINA ESTA LÍNEA
 
         setupBreedAutoComplete()
         setupInputListeners()
@@ -75,6 +81,7 @@ class EditAppointmentFragment : Fragment() {
 
     private fun observeViewModel() {
         // Rellenar campos iniciales
+        // Estos observadores se activarán cuando el ViewModel cargue los datos
         viewModel.petName.observe(viewLifecycleOwner) { name ->
             if (binding.etEditPetName.text.toString() != name) {
                 binding.etEditPetName.setText(name)
@@ -83,6 +90,9 @@ class EditAppointmentFragment : Fragment() {
         viewModel.breed.observe(viewLifecycleOwner) { breed ->
             val field = binding.tilEditBreed.editText as? AutoCompleteTextView
             if (field?.text.toString() != breed) {
+                // El segundo argumento 'false' en setText para AutoCompleteTextView
+                // evita que se active el filtro del adapter inmediatamente,
+                // lo cual es bueno al pre-rellenar.
                 field?.setText(breed, false)
             }
         }
@@ -108,28 +118,30 @@ class EditAppointmentFragment : Fragment() {
 
         // Navegar a Home tras guardar
         viewModel.navigateToHome.observe(viewLifecycleOwner) { goHome ->
-            if (goHome) {
+            if (goHome == true) { // Es buena práctica comparar con true para LiveData de eventos
                 Toast.makeText(
                     requireContext(),
                     getString(R.string.edit_appointment_success),
                     Toast.LENGTH_SHORT
                 ).show()
+                // Asegúrate que esta acción exista en tu nav_graph.xml
                 findNavController().navigate(
                     EditAppointmentFragmentDirections
-                        .actionEditAppointmentFragmentToHomeFragment()
+                        .actionEditAppointmentFragmentToHomeFragmentAfterEdit() // Nombre de acción corregido
                 )
-                viewModel.onHomeNavigated()
+                viewModel.onHomeNavigated() // Resetea el evento
             }
         }
 
         // Navegar al detalle si presionan atrás en toolbar
         viewModel.navigateToDetail.observe(viewLifecycleOwner) { id ->
             id?.let {
+                // Asegúrate que esta acción exista en tu nav_graph.xml
                 findNavController().navigate(
                     EditAppointmentFragmentDirections
                         .actionEditAppointmentFragmentToAppointmentDetailFragment(it)
                 )
-                viewModel.onDetailNavigated()
+                viewModel.onDetailNavigated() // Resetea el evento
             }
         }
     }
@@ -139,7 +151,7 @@ class EditAppointmentFragment : Fragment() {
             viewModel.updateAppointment()
         }
         binding.imageViewEditBackButton.setOnClickListener {
-            viewModel.onBackPressed()
+            viewModel.onToolbarBackClicked() // Llamar al método correcto del ViewModel
         }
     }
 

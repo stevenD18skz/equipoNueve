@@ -89,29 +89,20 @@
         android:id="@+id/editAppointmentFragment"
         android:name="com.example.dogapp.editappointment.EditAppointmentFragment"
         android:label="@string/edit_appointment_toolbar_title"
-        tools:layout="@layout/fragment_edit_appointment">
-
-        <!-- Recibimos el ID de la cita -->
+        tools:layout="@layout/fragment_edit_appointment" >
         <argument
             android:name="appointmentId"
             app:argType="integer"
-            android:defaultValue="-1" />
-
-        <!-- Guardar cambios → detalle (con el mismo ID) -->
+            android:defaultValue="-1"/>
         <action
             android:id="@+id/action_editAppointmentFragment_to_appointmentDetailFragment"
-            app:destination="@id/appointmentDetailFragment">
-            <argument
-                android:name="appointmentId"
-                app:argType="integer" />
-        </action>
-
-        <!-- O bien volver a Home limpiando back-stack -->
+            app:destination="@id/appointmentDetailFragment"
+            app:popUpTo="@id/appointmentDetailFragment"
+            app:popUpToInclusive="true"/>
         <action
-            android:id="@+id/action_editAppointmentFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
+            android:id="@+id/action_editAppointmentFragment_to_homeFragment_after_edit" app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"/>
     </fragment>
 
 </navigation>
