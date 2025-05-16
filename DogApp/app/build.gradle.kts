@@ -1,11 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-
-    // Aplico Safe Args aquí:
     id("androidx.navigation.safeargs.kotlin")
-
-    id("kotlin-kapt") // O id 'com.google.devtools.ksp' si KSP
+    id("kotlin-kapt")
 }
 
 android {
@@ -67,20 +64,17 @@ dependencies {
     implementation(libs.androidx.biometric.ktx)
 
     // Coil (para cargar imágenes - opcional para HU 2.0, pero útil para después)
-    implementation(libs.coil) // Usa la versión estable más reciente
-
+    implementation(libs.coil)
     implementation(libs.material.v190) // o la última versión
-
-
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
 
-
     // Room Persistence Library (¡ASEGÚRATE QUE ESTÉN ACTIVAS!)
     implementation (libs.androidx.room.runtime)
-    //kapt(libs.androidx.room.compiler) // O usa 'ksp "androidx.room:room-compiler:$room_version"'
-    implementation (libs.androidx.room.ktx) // Para coroutines y Flow/LiveData support
+
+    kapt(libs.androidx.room.compiler) // O usa 'ksp "androidx.room:room-compiler:$room_version"'
+    implementation (libs.androidx.room.ktx)
 
     // Lifecycle (ya deberían estar)
     implementation (libs.androidx.lifecycle.viewmodel.ktx.v270)
@@ -90,8 +84,7 @@ dependencies {
     // Coroutines (ya deberían estar)
     implementation (libs.kotlinx.coroutines.android)
 
-
-
+    // Otras Extensiones
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     testImplementation(libs.junit)
