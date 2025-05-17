@@ -119,7 +119,6 @@ class EditAppointmentFragment : Fragment() {
         // Navegar al detalle si presionan atrás en toolbar
         viewModel.navigateToDetail.observe(viewLifecycleOwner) { id ->
             id?.let {
-                // Asegúrate que esta acción exista en tu nav_graph.xml
                 findNavController().navigate(
                     EditAppointmentFragmentDirections
                         .actionEditAppointmentFragmentToAppointmentDetailFragment(it)
