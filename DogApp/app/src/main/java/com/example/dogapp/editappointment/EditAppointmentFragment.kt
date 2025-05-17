@@ -16,12 +16,11 @@ import androidx.navigation.fragment.navArgs
 import com.example.dogapp.R
 import com.example.dogapp.databinding.FragmentAppointmentEditBinding
 
-
-
 class EditAppointmentFragment : Fragment() {
 
     private var _binding: FragmentAppointmentEditBinding? = null
     private val binding get() = _binding!!
+
 
     private val viewModel: EditAppointmentViewModel by viewModels()
     private val args: EditAppointmentFragmentArgs by navArgs()
@@ -36,10 +35,6 @@ class EditAppointmentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Inicializa ViewModel con el ID de Safe Args
-        viewModel.init(args.appointmentId)
-
         setupBreedAutoComplete()
         setupInputListeners()
         observeViewModel()
@@ -74,7 +69,6 @@ class EditAppointmentFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        // Rellenar campos iniciales
         viewModel.petName.observe(viewLifecycleOwner) { name ->
             if (binding.etEditPetName.text.toString() != name) {
                 binding.etEditPetName.setText(name)
@@ -108,7 +102,7 @@ class EditAppointmentFragment : Fragment() {
 
         // Navegar a Home tras guardar
         viewModel.navigateToHome.observe(viewLifecycleOwner) { goHome ->
-            if (goHome) {
+            if (goHome == true) {
                 Toast.makeText(
                     requireContext(),
                     getString(R.string.edit_appointment_success),
@@ -116,9 +110,9 @@ class EditAppointmentFragment : Fragment() {
                 ).show()
                 findNavController().navigate(
                     EditAppointmentFragmentDirections
-                        .actionEditAppointmentFragmentToHomeFragment()
+                        .actionEditAppointmentFragmentToHomeFragmentAfterEdit()
                 )
-                viewModel.onHomeNavigated()
+                viewModel.onHomeNavigated() // Resetea el evento
             }
         }
 
@@ -129,7 +123,7 @@ class EditAppointmentFragment : Fragment() {
                     EditAppointmentFragmentDirections
                         .actionEditAppointmentFragmentToAppointmentDetailFragment(it)
                 )
-                viewModel.onDetailNavigated()
+                viewModel.onDetailNavigated() // Resetea el evento
             }
         }
     }
@@ -139,7 +133,7 @@ class EditAppointmentFragment : Fragment() {
             viewModel.updateAppointment()
         }
         binding.imageViewEditBackButton.setOnClickListener {
-            viewModel.onBackPressed()
+            viewModel.onToolbarBackClicked()
         }
     }
 

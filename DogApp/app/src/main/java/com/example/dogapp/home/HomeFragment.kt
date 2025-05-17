@@ -1,4 +1,4 @@
-package com.example.dogapp.home // Ajusta tu package name
+package com.example.dogapp.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dogapp.R
 import com.example.dogapp.databinding.FragmentHomeBinding
 import com.example.dogapp.home.adapter.AppointmentAdapter
-// import com.example.dogapp.model.Appointment // Ya no se necesita si el Adapter usa la entidad de Room
 
 class HomeFragment : Fragment() {
 
@@ -45,8 +44,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        // Ahora el lambda 'appointment' será de tipo com.example.dogapp.database.entity.Appointment
-        // porque el AppointmentAdapter fue corregido para esperar ese tipo.
+
         appointmentAdapter = AppointmentAdapter { appointment ->
             Toast.makeText(requireContext(), getString(R.string.navigate_to_appointment_detail, appointment.id), Toast.LENGTH_SHORT).show()
             val bundle = Bundle().apply {
@@ -63,10 +61,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        // 'appointments' (que es 'it' en tu código original) será de tipo List<com.example.dogapp.database.entity.Appointment>
         homeViewModel.allAppointments.observe(viewLifecycleOwner) { appointments ->
             appointments?.let {
-                // Esta línea ya no debería dar error si AppointmentAdapter espera el tipo correcto.
                 appointmentAdapter.submitList(it)
 
                 binding.recyclerViewAppointments.visibility = if (it.isEmpty()) View.GONE else View.VISIBLE

@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-// Importa AMBOS tipos si son diferentes y necesitas el modelo para el LiveData
+
 import com.example.dogapp.model.Appointment as ModelAppointment // Alias para el modelo
 import com.example.dogapp.database.entity.Appointment as EntityAppointment // Alias para la entidad (opcional si las rutas son claras)
 import com.example.dogapp.database.AppDatabase
@@ -18,7 +18,7 @@ class AppointmentDetailViewModel(
 
     private val appointmentDao: AppointmentDao = AppDatabase.getDatabase(application).appointmentDao()
 
-    // _appointment ahora es de tipo ModelAppointment
+
     private val _appointment = MutableLiveData<ModelAppointment?>()
     val appointment: LiveData<ModelAppointment?> = _appointment
 
@@ -47,7 +47,6 @@ class AppointmentDetailViewModel(
                 ownerPhone = it.ownerPhone,
                 symptoms = it.symptoms,
                 petImageUrl = it.petImageUrl
-                // Asegúrate de que todos los campos necesarios para ModelAppointment se mapeen desde EntityAppointment
             )
         }
     }
