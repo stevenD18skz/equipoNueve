@@ -124,6 +124,12 @@ class NewAppointmentFragment : Fragment() {
                 viewModel.onNavigationComplete()
             }
         }
+
+        viewModel.isFetchingImage.observe(viewLifecycleOwner) { isFetching ->
+            binding.progressBarNewAppointment.visibility = if (isFetching) View.VISIBLE else View.GONE
+            // Opcionalmente, deshabilita el botón de guardar mientras carga
+            binding.buttonSaveAppointment.isEnabled = !isFetching && (viewModel.isSaveButtonEnabled.value ?: false)
+        }
     }
 
     private fun setupClickListeners() {
