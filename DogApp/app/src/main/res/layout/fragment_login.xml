@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_grey_background"
+    tools:context=".login.LoginFragment">
+
+    <ImageView
+        android:id="@+id/imageViewDogHead"
+        android:layout_width="331dp"
+        android:layout_height="310dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/dog_head_description"
+        android:scaleType="fitCenter"
+        android:src="@drawable/img_dog_head"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewAppTitle"
+        android:layout_width="211dp"  android:layout_height="69dp"
+        android:text="@string/dog_app_title"
+        android:textColor="@color/dog_app_title_color"
+        android:textSize="59sp"
+        android:textStyle="bold"
+        app:fontFamily="@font/cool_font_bold"
+        app:layout_constraintTop_toBottomOf="@id/imageViewDogHead"  app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieAnimationViewFingerprint"
+        android:layout_width="189dp"
+        android:layout_height="186dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewAppTitle"
+        app:layout_constraintVertical_bias="0.5"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/fingerprint_animation" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
