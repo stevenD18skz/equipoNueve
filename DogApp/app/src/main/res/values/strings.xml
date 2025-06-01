@@ -59,9 +59,4 @@
     <string name="home_fragment_label">Home</string>
     <string name="new_appointment_fragment_label">New Appointment</string>
     <string name="appointment_detail_fragment_label">Appointment Detail</string>
-
-
-
-
-
 </resources>

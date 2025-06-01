@@ -36,10 +36,8 @@ class AppointmentDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // Inicializar el ViewModel con el ID que viene por args
         viewModel.init(args.appointmentId)
-
         observeViewModel()
         setupClickListeners()
     }

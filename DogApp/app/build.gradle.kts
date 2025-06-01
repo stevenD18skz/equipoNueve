@@ -63,25 +63,25 @@ dependencies {
     // Biometric authentication
     implementation(libs.androidx.biometric.ktx)
 
-    // Coil (para cargar imágenes - opcional para HU 2.0, pero útil para después)
+    // Coil
     implementation(libs.coil)
-    implementation(libs.material.v190) // o la última versión
+    implementation(libs.material.v190)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
 
-    // Room Persistence Library (¡ASEGÚRATE QUE ESTÉN ACTIVAS!)
+    // Room Persistence Library
     implementation (libs.androidx.room.runtime)
 
-    kapt(libs.androidx.room.compiler) // O usa 'ksp "androidx.room:room-compiler:$room_version"'
+    kapt(libs.androidx.room.compiler)
     implementation (libs.androidx.room.ktx)
 
-    // Lifecycle (ya deberían estar)
+    // Lifecycle
     implementation (libs.androidx.lifecycle.viewmodel.ktx.v270)
     implementation (libs.androidx.lifecycle.livedata.ktx.v270)
     implementation (libs.androidx.lifecycle.runtime.ktx)
 
-    // Coroutines (ya deberían estar)
+    // Coroutines
     implementation (libs.kotlinx.coroutines.android)
 
     // Otras Extensiones

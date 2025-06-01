@@ -17,8 +17,6 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-
-    // homeViewModel (home_view_model_room) ya provee LiveData<List<com.example.dogapp.database.entity.Appointment>>
     private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var appointmentAdapter: AppointmentAdapter
 

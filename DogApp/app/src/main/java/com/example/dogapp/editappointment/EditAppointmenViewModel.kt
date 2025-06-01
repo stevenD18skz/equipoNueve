@@ -7,7 +7,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
-import com.example.dogapp.data.remote.RetrofitClient // Asegúrate que esta importación sea correcta
+import com.example.dogapp.data.remote.RetrofitClient
 import com.example.dogapp.database.AppDatabase
 import com.example.dogapp.database.entity.Appointment
 import com.example.dogapp.repository.AppointmentRepository
@@ -123,8 +123,6 @@ class EditAppointmentViewModel(
                             }
                         }
                     } catch (e: Exception) {
-                        // Si falla la obtención de la nueva imagen, newImageUrl seguirá siendo la original (o null si no había)
-                        // Log.e("EditVM", "Error fetching new dog image", e)
                     }
                 }
 
@@ -133,16 +131,14 @@ class EditAppointmentViewModel(
                     breed = currentBreedValue, // Usar la raza actual del campo
                     ownerName = ownerName.value ?: original.ownerName,
                     ownerPhone = ownerPhone.value ?: original.ownerPhone,
-                    petImageUrl = newImageUrl // Usar la nueva URL de imagen (o la original si no cambió/falló)
+                    petImageUrl = newImageUrl // Usar la nueva URL de imagen
                 )
                 repository.update(updatedAppointment)
                 _isFetchingImage.postValue(false) // Finalizar indicador de carga
                 _navigateToHome.postValue(true)
             }
         } else {
-            // Manejar caso donde el botón no está habilitado o la raza es nula (no debería pasar si la validación funciona)
             if (currentBreedValue == null) {
-                // Podrías mostrar un error o simplemente no hacer nada
             }
         }
     }

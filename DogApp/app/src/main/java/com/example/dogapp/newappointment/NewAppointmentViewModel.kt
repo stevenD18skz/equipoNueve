@@ -10,7 +10,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-// Helper function para combinar LiveData (si no la tienes en un archivo utils)
 fun <T, K, R> LiveData<T>.combineWith(
     liveData: LiveData<K>,
     block: (T?, K?) -> R
@@ -34,7 +33,7 @@ class NewAppointmentViewModel(
 
     // Campos del formulario
     val petName = MutableLiveData<String>("")
-    val breed = MutableLiveData<String>("") // Este se llenará del AutoComplete
+    val breed = MutableLiveData<String>("")
     val ownerName = MutableLiveData<String>("")
     val ownerPhone = MutableLiveData<String>("")
     val selectedSymptom = MutableLiveData<String>("")
@@ -68,7 +67,7 @@ class NewAppointmentViewModel(
     private val _navigateToHome = MutableLiveData<Boolean>(false)
     val navigateToHome: LiveData<Boolean> = _navigateToHome
 
-    // LiveData para indicar si se está cargando la imagen (opcional, para mostrar un ProgressBar)
+    // LiveData para indicar si se está cargando la imagen
     private val _isFetchingImage = MutableLiveData<Boolean>(false)
     val isFetchingImage: LiveData<Boolean> get() = _isFetchingImage
 
@@ -94,7 +93,6 @@ class NewAppointmentViewModel(
                 }
             } catch (e: Exception) {
                 _breedList.postValue(emptyList())
-                // Aquí podrías mostrar un error al usuario si la carga de razas falla
             }
         }
     }
@@ -107,13 +105,12 @@ class NewAppointmentViewModel(
         }
 
         val currentPetName = petName.value.orEmpty()
-        val currentBreed = breed.value.orEmpty() // La raza seleccionada en el AutoComplete
+        val currentBreed = breed.value.orEmpty()
         val currentOwnerName = ownerName.value.orEmpty()
         val currentOwnerPhone = ownerPhone.value.orEmpty()
 
-        // Validar que los campos no estén vacíos (aunque el botón ya lo hace, una doble verificación)
+        // Validar que los campos no estén vacíos
         if (currentPetName.isBlank() || currentBreed.isBlank() || currentOwnerName.isBlank() || currentOwnerPhone.isBlank()) {
-            // Podrías mostrar un Toast o un error más específico aquí
             return
         }
 
@@ -122,14 +119,7 @@ class NewAppointmentViewModel(
         viewModelScope.launch {
             var imageUrl: String? = null
             try {
-                // La API de Dog CEO espera las razas en minúsculas y, si son compuestas (ej. "German Shepherd"),
-                // a veces las quiere como "germanshepherd" o "shepherd/german".
-                // Para simplificar, usaremos la raza tal como viene del AutoComplete pero en minúsculas.
-                // La API de lista de razas devuelve nombres como "germanshepherd", así que eso debería funcionar.
-                // Si la raza seleccionada tiene espacios, la API de imagen podría fallar.
-                // Una mejora sería normalizar el nombre de la raza para la API de imagen.
-                // Por ahora, convertimos a minúsculas.
-                val apiBreedName = currentBreed.lowercase().replace(" ", "") // Intento simple de normalización
+                val apiBreedName = currentBreed.lowercase().replace(" ", "")
 
                 if (apiBreedName.isNotBlank()) {
                     val imageResponse = RetrofitClient.dogCeoApiService.getRandomImageByBreed(apiBreedName)
@@ -138,24 +128,18 @@ class NewAppointmentViewModel(
                     }
                 }
             } catch (e: Exception) {
-                // Manejar error de red al obtener la imagen, imageUrl permanecerá null
-                // Podrías loguear el error: Log.e("NewAppointmentVM", "Error fetching dog image", e)
             }
 
             val dbEntity = DbAppointment(
                 petName = currentPetName,
-                breed = currentBreed, // Guardar la raza como la seleccionó el usuario
+                breed = currentBreed,
                 ownerName = currentOwnerName,
                 ownerPhone = currentOwnerPhone,
                 symptoms = symptomValue,
-                petImageUrl = imageUrl // Guardar la URL de la imagen obtenida (o null si falló)
+                petImageUrl = imageUrl
             )
 
-            // Guardar en la base de datos usando el repositorio
-            // withContext(Dispatchers.IO) { // El DAO ya usa suspend, así que no es estrictamente necesario aquí
             repository.insert(dbEntity)
-            // }
-
             _isFetchingImage.postValue(false) // Finalizar indicador de carga
             _navigateToHome.postValue(true) // Navegar después de guardar
         }
@@ -167,7 +151,6 @@ class NewAppointmentViewModel(
 
     fun onNavigationComplete() {
         _navigateToHome.value = false
-        // Limpiar campos (opcional, pero buena práctica)
         petName.value = ""
         breed.value = ""
         ownerName.value = ""

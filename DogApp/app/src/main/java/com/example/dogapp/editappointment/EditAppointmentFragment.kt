@@ -108,10 +108,10 @@ class EditAppointmentFragment : Fragment() {
             // Deshabilitar el botón mientras se carga la imagen
             val fieldsValid = viewModel.isEditButtonEnabled.value ?: false
             binding.buttonUpdateAppointment.isEnabled = fieldsValid && !isFetching
-            if (isFetching) { // Opcional: cambiar texto del botón
-                // binding.buttonUpdateAppointment.text = "Guardando..."
+            if (isFetching) {
+                binding.buttonUpdateAppointment.text = "Guardando..."
             } else {
-                // binding.buttonUpdateAppointment.text = getString(R.string.button_edit_appointment)
+                binding.buttonUpdateAppointment.text = getString(R.string.button_edit_appointment)
             }
         }
 

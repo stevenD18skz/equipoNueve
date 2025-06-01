@@ -1,4 +1,4 @@
-package com.example.dogapp.data.remote.dto // Ajusta tu package name
+package com.example.dogapp.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
