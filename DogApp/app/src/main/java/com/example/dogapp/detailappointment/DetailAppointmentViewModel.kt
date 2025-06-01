@@ -5,9 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
-
-import com.example.dogapp.model.Appointment as ModelAppointment // Alias para el modelo
-import com.example.dogapp.database.entity.Appointment as EntityAppointment // Alias para la entidad (opcional si las rutas son claras)
+import com.example.dogapp.model.Appointment as ModelAppointment
+import com.example.dogapp.database.entity.Appointment as EntityAppointment
 import com.example.dogapp.database.AppDatabase
 import com.example.dogapp.database.dao.AppointmentDao
 import kotlinx.coroutines.launch
@@ -51,7 +50,7 @@ class AppointmentDetailViewModel(
         }
     }
 
-    // Función de mapeo de Modelo a Entidad (necesaria para borrar si el DAO espera Entidad)
+    // Función de mapeo de Modelo a Entidad
     private fun mapModelToEntity(model: ModelAppointment?): EntityAppointment? {
         return model?.let {
             EntityAppointment(
@@ -62,7 +61,6 @@ class AppointmentDetailViewModel(
                 ownerPhone = it.ownerPhone,
                 symptoms = it.symptoms,
                 petImageUrl = it.petImageUrl
-                // Asegúrate de que todos los campos necesarios para EntityAppointment se mapeen desde ModelAppointment
             )
         }
     }
@@ -71,23 +69,20 @@ class AppointmentDetailViewModel(
     private fun loadAppointmentDetail(id: Int) {
         viewModelScope.launch {
             val entityAppointmentFromDb: EntityAppointment? = appointmentDao.getAppointmentById(id)
-            // Mapeamos la entidad al modelo antes de postear al LiveData
             val modelAppointment = mapEntityToModel(entityAppointmentFromDb)
             _appointment.postValue(modelAppointment)
         }
     }
 
     fun onDeleteClicked() {
-        _appointment.value?.let { currentModelAppointment -> // currentModelAppointment es ModelAppointment
+        _appointment.value?.let { currentModelAppointment ->
             viewModelScope.launch {
-                // Mapeamos el modelo de vuelta a entidad para la operación del DAO
                 val entityToDelete = mapModelToEntity(currentModelAppointment)
                 if (entityToDelete != null) {
-                    appointmentDao.deleteAppointment(entityToDelete) // El DAO espera EntityAppointment
+                    appointmentDao.deleteAppointment(entityToDelete)
                     _navigateToHome.postValue(true)
                 } else {
-                    // Manejar el caso donde el mapeo falla, aunque es improbable si currentModelAppointment no es null
-                    _navigateToHome.postValue(true) // O mostrar un error
+                    _navigateToHome.postValue(true)
                 }
             }
         } ?: run {
@@ -100,7 +95,7 @@ class AppointmentDetailViewModel(
     }
 
     fun onEditClicked() {
-        _navigateToEdit.value = _appointment.value?.id // id debería ser el mismo en modelo y entidad
+        _navigateToEdit.value = _appointment.value?.id
     }
 
     fun onEditNavigated() {

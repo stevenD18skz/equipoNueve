@@ -32,7 +32,6 @@ class NewAppointmentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupBreedAutoComplete()
         setupSymptomsSpinner()
         setupInputListeners()
@@ -122,6 +121,25 @@ class NewAppointmentFragment : Fragment() {
                         .actionNewAppointmentFragmentToHomeFragment()
                 )
                 viewModel.onNavigationComplete()
+            }
+        }
+
+
+        
+        viewModel.isFetchingImage.observe(viewLifecycleOwner) { isFetching ->
+            // 1) Mostrar u ocultar ProgressBar
+            binding.progressBarNewAppointment.visibility =
+                if (isFetching) View.VISIBLE else View.GONE
+
+            // 2) Habilitar/deshabilitar botón combinando isSaveButtonEnabled + isFetchingImage
+            val camposValidos = viewModel.isSaveButtonEnabled.value ?: false
+            binding.buttonSaveAppointment.isEnabled = camposValidos && !isFetching
+
+            // 3) Cambiar el texto del botón mientras se esté cargando
+            if (isFetching) {
+                binding.buttonSaveAppointment.text = "Guardando..."
+            } else {
+                binding.buttonSaveAppointment.text = getString(R.string.button_save_appointment)
             }
         }
     }

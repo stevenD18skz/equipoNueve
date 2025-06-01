@@ -43,6 +43,8 @@
             android:layout_marginEnd="48dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -161,6 +163,18 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
+
+    <ProgressBar
+        android:id="@+id/progressBarNewAppointment"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/buttonSaveAppointment"
         android:layout_width="0dp"
@@ -171,11 +185,11 @@
         android:padding="12dp"
         android:text="@string/button_save_appointment"
         app:icon="@drawable/ic_save"
-        app:iconTint="@color/white"
+        app:iconTint="@color/button_save_text_color_selector"
         app:iconGravity="textStart"
         app:backgroundTint="@color/pink_accent"
         app:cornerRadius="24dp"
-        android:textColor="@color/white"
+        android:textColor="@color/button_save_text_color_selector"
         android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

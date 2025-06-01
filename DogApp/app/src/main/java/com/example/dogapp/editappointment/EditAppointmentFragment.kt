@@ -93,6 +93,30 @@ class EditAppointmentFragment : Fragment() {
 
         // Habilitar/deshabilitar botón
         viewModel.isEditButtonEnabled.observe(viewLifecycleOwner) { enabled ->
+            // Solo habilita el botón si no se está cargando una imagen Y los campos son válidos
+            val currentlyFetching = viewModel.isFetchingImage.value ?: false
+            binding.buttonUpdateAppointment.isEnabled = enabled && !currentlyFetching
+            binding.buttonUpdateAppointment.setTypeface(
+                null,
+                if (enabled && !currentlyFetching) Typeface.BOLD else Typeface.NORMAL
+            )
+        }
+
+        // Observar estado de carga de imagen
+        viewModel.isFetchingImage.observe(viewLifecycleOwner) { isFetching ->
+            binding.progressBarEditAppointment.visibility = if (isFetching) View.VISIBLE else View.GONE
+            // Deshabilitar el botón mientras se carga la imagen
+            val fieldsValid = viewModel.isEditButtonEnabled.value ?: false
+            binding.buttonUpdateAppointment.isEnabled = fieldsValid && !isFetching
+            if (isFetching) {
+                binding.buttonUpdateAppointment.text = "Guardando..."
+            } else {
+                binding.buttonUpdateAppointment.text = getString(R.string.button_edit_appointment)
+            }
+        }
+
+        // Habilitar/deshabilitar botón
+        viewModel.isEditButtonEnabled.observe(viewLifecycleOwner) { enabled ->
             binding.buttonUpdateAppointment.isEnabled = enabled
             binding.buttonUpdateAppointment.setTypeface(
                 null,

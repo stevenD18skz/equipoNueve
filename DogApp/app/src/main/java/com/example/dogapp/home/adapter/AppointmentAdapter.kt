@@ -1,4 +1,4 @@
-package com.example.dogapp.home.adapter // Ajusta tu package name
+package com.example.dogapp.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,12 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.example.dogapp.R
 import com.example.dogapp.databinding.ItemAppointmentBinding
-// CAMBIO IMPORTANTE: Usar la entidad de Room
 import com.example.dogapp.database.entity.Appointment
 
-// CAMBIO IMPORTANTE: El lambda ahora recibe la entidad de Room
+
 class AppointmentAdapter(private val onItemClicked: (Appointment) -> Unit) :
-    ListAdapter<Appointment, AppointmentAdapter.AppointmentViewHolder>(DiffCallback) { // Appointment es ahora la entidad de Room
+    ListAdapter<Appointment, AppointmentAdapter.AppointmentViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AppointmentViewHolder {
         val binding = ItemAppointmentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -21,7 +20,7 @@ class AppointmentAdapter(private val onItemClicked: (Appointment) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: AppointmentViewHolder, position: Int) {
-        val currentAppointment = getItem(position) // Esto será un com.example.dogapp.database.entity.Appointment
+        val currentAppointment = getItem(position)
         holder.itemView.setOnClickListener {
             onItemClicked(currentAppointment)
         }
@@ -31,7 +30,6 @@ class AppointmentAdapter(private val onItemClicked: (Appointment) -> Unit) :
     inner class AppointmentViewHolder(private val binding: ItemAppointmentBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        // CAMBIO IMPORTANTE: El parámetro es la entidad de Room
         fun bind(appointment: Appointment) {
             binding.textViewPetName.text = appointment.petName
             binding.textViewSymptom.text = appointment.symptoms
@@ -44,8 +42,6 @@ class AppointmentAdapter(private val onItemClicked: (Appointment) -> Unit) :
             }
         }
     }
-
-    // CAMBIO IMPORTANTE: DiffUtil ahora compara la entidad de Room
     companion object DiffCallback : DiffUtil.ItemCallback<Appointment>() {
         override fun areItemsTheSame(oldItem: Appointment, newItem: Appointment): Boolean {
             return oldItem.id == newItem.id

@@ -158,13 +158,28 @@
         android:layout_marginBottom="24dp"
         android:padding="12dp"
         android:text="@string/button_edit_appointment"
-        app:icon="@drawable/ic_save" app:iconGravity="textStart"
-        app:backgroundTint="@drawable/save_button_tint_selector"
+        app:icon="@drawable/ic_save"
+        app:iconTint="@color/button_save_text_color_selector"
+        app:iconGravity="textStart"
+        app:backgroundTint="@color/pink_accent"
         app:cornerRadius="24dp"
-        android:textColor="@color/white"
+        android:textColor="@color/button_save_text_color_selector"
         android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBarEditAppointment"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
