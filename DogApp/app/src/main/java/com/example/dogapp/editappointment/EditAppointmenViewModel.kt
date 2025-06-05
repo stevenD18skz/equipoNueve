@@ -137,9 +137,6 @@ class EditAppointmentViewModel(
                 _isFetchingImage.postValue(false) // Finalizar indicador de carga
                 _navigateToHome.postValue(true)
             }
-        } else {
-            if (currentBreedValue == null) {
-            }
         }
     }
 
@@ -155,3 +152,4 @@ class EditAppointmentViewModel(
         _navigateToDetail.value = null
     }
 }
+

@@ -34,7 +34,7 @@
     <string name="detail_delete_fab_description">Eliminar cita</string>
     <string name="detail_edit_fab_description">Editar cita</string>
     <string name="appointment_image_description">Imagen de la mascota</string>
-    <string name="appointment_deleted_message">Cita eliminada (simulado)</string>
+    <string name="appointment_deleted_message">Cita eliminada Exitosamente</string>
     <string name="navigate_to_edit_appointment">Abrir pantalla de edición para cita %d</string>
 
     <!-- New Appointment Strings -->
@@ -44,13 +44,13 @@
     <string name="hint_owner_name">Nombre del Propietario</string>
     <string name="hint_phone">Teléfono</string>
     <string name="button_save_appointment">Guardar Cita</string>
-    <string name="save_appointment_success">Cita guardada (simulado)</string>
+    <string name="save_appointment_success">Cita guardada Exitosamente</string>
     <string name="error_select_symptom">Selecciona un síntoma</string>
 
     <!-- Edit Strings -->
     <string name="edit_appointment_toolbar_title">Editar Cita</string>
     <string name="button_edit_appointment">Editar Cita</string>
-    <string name="edit_appointment_success">Cita editada (simulado)</string>
+    <string name="edit_appointment_success">Cita editada Exitosamente</string>
 
 
     <!-- Navigation Strings -->
