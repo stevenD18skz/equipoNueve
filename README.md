@@ -25,7 +25,7 @@ Este proyecto se desarrolla como parte del Miniproyecto 1, aplicando los conocim
 | 202228507  | Kevin Jordan Alzate            | kevin.jordan@correounivalle.edu.co         |
 | 202224949  | Junior Cantor Arevalo          | junior.cantor@correounivalle.edu.co        |
 | 202226675  | Brayan Steven Narvaez Valdes   | Brayan.steven.narvaez@correounivalle.edu.co|
-| xxxxxxxxx  | xxxxxx xxxxxx xxxxxxx xxxxxx   | emanuel.rivas@correounivalle.edu.co        |
+| 202127706  | Emanuel Arturo Rivas Escobar   | emanuel.rivas@correounivalle.edu.co        |
 
 ---
 
