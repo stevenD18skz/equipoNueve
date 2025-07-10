@@ -1,5 +1,6 @@
 package com.example.dogapp.detailappointment
 
+// Importaciones necesarias para UI, navegación, binding y carga de imágenes
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,17 +16,25 @@ import com.example.dogapp.R
 import com.example.dogapp.databinding.FragmentAppointmentDetailBinding
 import com.example.dogapp.model.Appointment
 
+/**
+ * Fragmento que muestra el detalle de una cita.
+ * Permite visualizar la información de la cita seleccionada, navegar hacia atrás o editar la cita.
+ */
 class AppointmentDetailFragment : Fragment() {
 
+    // ViewBinding para acceder a las vistas del layout de forma segura
     private var _binding: FragmentAppointmentDetailBinding? = null
     private val binding get() = _binding!!
 
-    // Inyectamos el ViewModel con SavedStateHandle para los args
+    // ViewModel inyectado para manejar la lógica y datos del detalle
     private val viewModel: AppointmentDetailViewModel by viewModels()
 
-    // Safe Args: aquí obtenemos el appointmentId
+    // Safe Args para recibir el ID de la cita a mostrar
     private val args: AppointmentDetailFragmentArgs by navArgs()
 
+    /**
+     * Infla el layout del fragmento usando ViewBinding
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,14 +43,20 @@ class AppointmentDetailFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Se ejecuta después de que la vista ha sido creada. Inicializa el ViewModel y listeners.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Inicializar el ViewModel con el ID que viene por args
+        // Inicializa el ViewModel con el ID recibido por argumentos
         viewModel.init(args.appointmentId)
-        observeViewModel()
-        setupClickListeners()
+        observeViewModel()      // Observa cambios en el ViewModel
+        setupClickListeners()   // Configura listeners de botones
     }
 
+    /**
+     * Observa los LiveData del ViewModel para actualizar la UI o navegar
+     */
     private fun observeViewModel() {
         viewModel.appointment.observe(viewLifecycleOwner) { appointment ->
             if (appointment != null) {

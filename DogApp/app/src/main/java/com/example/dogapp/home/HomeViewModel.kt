@@ -1,5 +1,6 @@
 package com.example.dogapp.home
 
+// Importaciones necesarias para ViewModel, LiveData y acceso a base de datos
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -7,24 +8,27 @@ import com.example.dogapp.database.AppDatabase
 import com.example.dogapp.database.entity.Appointment
 import com.example.dogapp.repository.AppointmentRepository
 
-// 1. Heredar de AndroidViewModel para obtener el Application context
+/**
+ * ViewModel de la pantalla principal (Home).
+ * Encargado de proporcionar la lista de citas agendadas a la UI y abstraer la lógica de acceso a datos.
+ * Hereda de AndroidViewModel para tener acceso al contexto de la aplicación (necesario para Room).
+ */
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
-    // 2. Declarar el Repositorio y el LiveData para las citas
+    // Repositorio que encapsula la lógica de acceso a la base de datos de citas
     private val repository: AppointmentRepository
+    // LiveData que expone la lista de todas las citas para ser observada por la UI
     val allAppointments: LiveData<List<Appointment>>
 
     init {
-        // 3. Obtener una instancia del DAO a través de la base de datos
-        // Se usa el 'application' context que provee AndroidViewModel
+        // Obtiene una instancia del DAO de citas usando el contexto de la aplicación
         val appointmentDao = AppDatabase.getDatabase(application).appointmentDao()
 
-        // 4. Inicializar el Repositorio con el DAO
+        // Inicializa el repositorio con el DAO obtenido
         repository = AppointmentRepository(appointmentDao)
 
-        // 5. Obtener todas las citas del Repositorio.
-        // El Repositorio obtiene esto del DAO, que a su vez lo obtiene de la base de datos SQLite.
-        // Como el DAO devuelve LiveData, la UI se actualizará automáticamente cuando los datos cambien.
+        // Obtiene el LiveData de todas las citas desde el repositorio
+        // Esto permite que la UI se actualice automáticamente cuando cambian los datos en la base
         allAppointments = repository.allAppointments
     }
 }

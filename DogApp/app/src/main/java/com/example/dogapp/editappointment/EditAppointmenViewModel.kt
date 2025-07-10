@@ -1,5 +1,6 @@
 package com.example.dogapp.editappointment
 
+// Importaciones necesarias para ViewModel, LiveData y corrutinas
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -14,22 +15,31 @@ import com.example.dogapp.repository.AppointmentRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel para la edición de citas. Gestiona la lógica de negocio y los datos
+ * necesarios para editar una cita, validando campos y gestionando la navegación.
+ */
 class EditAppointmentViewModel(
     application: Application,
     private val savedStateHandle: SavedStateHandle
 ) : AndroidViewModel(application) {
 
+    // Repositorio para interactuar con la base de datos
     private val repository: AppointmentRepository
+    // Cita original cargada para editar
     private val _originalAppointment = MutableLiveData<Appointment?>()
 
-    val petName = MutableLiveData<String>()
-    val breed = MutableLiveData<String>() // Este es el valor actual del campo de raza
-    val ownerName = MutableLiveData<String>()
-    val ownerPhone = MutableLiveData<String>()
+    // Campos del formulario editables
+    val petName = MutableLiveData<String>()              // Nombre de la mascota
+    val breed = MutableLiveData<String>()                // Raza actual en el campo de texto
+    val ownerName = MutableLiveData<String>()            // Nombre del dueño
+    val ownerPhone = MutableLiveData<String>()           // Teléfono del dueño
 
-    private val _breedList = MutableLiveData<List<String>>() // Lista para el AutoComplete
+    // Lista de razas para el campo de autocompletado
+    private val _breedList = MutableLiveData<List<String>>()
     val breedList: LiveData<List<String>> get() = _breedList
 
+    // LiveData que indica si el botón de guardar está habilitado (valida todos los campos)
     val isEditButtonEnabled: LiveData<Boolean> = MediatorLiveData<Boolean>().apply {
         fun validate() {
             val petNameValid = !petName.value.isNullOrBlank()
@@ -44,19 +54,23 @@ class EditAppointmentViewModel(
         addSource(ownerPhone) { validate() }
     }
 
+    // LiveData para la navegación (cuando guardar es exitoso)
     private val _navigateToHome = MutableLiveData<Boolean>()
     val navigateToHome: LiveData<Boolean> get() = _navigateToHome
 
+    // LiveData para navegar al detalle de la cita
     private val _navigateToDetail = MutableLiveData<Int?>()
     val navigateToDetail: LiveData<Int?> get() = _navigateToDetail
 
-    // LiveData para indicar si se está cargando la imagen
+    // LiveData para indicar si se está cargando la imagen (útil para mostrar un loader)
     private val _isFetchingImage = MutableLiveData<Boolean>(false)
     val isFetchingImage: LiveData<Boolean> get() = _isFetchingImage
 
+    // ID de la cita que se está editando
     private val appointmentId: Int
 
     init {
+        // Inicializa el DAO y el repositorio usando el contexto de la aplicación
         val appointmentDao = AppDatabase.getDatabase(application).appointmentDao()
         repository = AppointmentRepository(appointmentDao)
         appointmentId = savedStateHandle.get<Int>("appointmentId") ?: -1

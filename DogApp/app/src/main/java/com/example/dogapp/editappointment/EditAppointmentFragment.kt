@@ -1,5 +1,6 @@
 package com.example.dogapp.editappointment
 
+// Importaciones necesarias para UI, navegación y binding
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,15 +17,24 @@ import androidx.navigation.fragment.navArgs
 import com.example.dogapp.R
 import com.example.dogapp.databinding.FragmentAppointmentEditBinding
 
+/**
+ * Fragmento para editar una cita existente.
+ * Gestiona el formulario de edición, la validación de campos y la interacción con el ViewModel.
+ */
 class EditAppointmentFragment : Fragment() {
 
+    // ViewBinding para acceder a las vistas del layout de forma segura
     private var _binding: FragmentAppointmentEditBinding? = null
     private val binding get() = _binding!!
 
-
+    // ViewModel para manejar la lógica de edición
     private val viewModel: EditAppointmentViewModel by viewModels()
+    // Safe Args para recibir argumentos de navegación
     private val args: EditAppointmentFragmentArgs by navArgs()
 
+    /**
+     * Infla el layout del fragmento usando ViewBinding
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,14 +43,20 @@ class EditAppointmentFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Se ejecuta después de que la vista ha sido creada. Configura listeners y observadores.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupBreedAutoComplete()
-        setupInputListeners()
-        observeViewModel()
-        setupClickListeners()
+        setupBreedAutoComplete()   // Configura el autocompletado de razas
+        setupInputListeners()      // Escucha cambios en los campos de texto
+        observeViewModel()         // Observa cambios en el ViewModel
+        setupClickListeners()      // Configura los clicks de los botones
     }
 
+    /**
+     * Configura el campo de autocompletado para la raza usando la lista del ViewModel
+     */
     private fun setupBreedAutoComplete() {
         viewModel.breedList.observe(viewLifecycleOwner) { breeds ->
             val adapter = ArrayAdapter(
@@ -56,6 +72,9 @@ class EditAppointmentFragment : Fragment() {
             }
     }
 
+    /**
+     * Configura los listeners para los campos de entrada del formulario
+     */
     private fun setupInputListeners() {
         binding.etEditPetName.doOnTextChanged { text, _, _, _ ->
             viewModel.petName.value = text.toString()

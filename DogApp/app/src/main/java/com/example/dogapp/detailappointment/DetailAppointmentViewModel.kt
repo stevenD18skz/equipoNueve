@@ -1,5 +1,6 @@
 package com.example.dogapp.detailappointment
 
+// Importaciones necesarias para ViewModel, LiveData, corrutinas y acceso a base de datos
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,22 +12,33 @@ import com.example.dogapp.database.AppDatabase
 import com.example.dogapp.database.dao.AppointmentDao
 import kotlinx.coroutines.launch
 
+/**
+ * ViewModel para el detalle de una cita.
+ * Gestiona la carga, transformación y navegación desde el detalle de la cita.
+ */
 class AppointmentDetailViewModel(
     application: Application
 ) : AndroidViewModel(application) {
 
+    // DAO para acceder a la base de datos de citas
     private val appointmentDao: AppointmentDao = AppDatabase.getDatabase(application).appointmentDao()
 
-
+    // LiveData con la cita actual (modelo de presentación)
     private val _appointment = MutableLiveData<ModelAppointment?>()
     val appointment: LiveData<ModelAppointment?> = _appointment
 
+    // LiveData para navegar a Home
     private val _navigateToHome = MutableLiveData<Boolean>()
     val navigateToHome: LiveData<Boolean> = _navigateToHome
 
+    // LiveData para navegar a la edición de la cita
     private val _navigateToEdit = MutableLiveData<Int?>()
     val navigateToEdit: LiveData<Int?> = _navigateToEdit
 
+    /**
+     * Inicializa el ViewModel cargando el detalle de la cita por ID.
+     * Si el ID es negativo, se establece la cita en null.
+     */
     fun init(appointmentId: Int) {
         if (appointmentId < 0) {
             _appointment.value = null
@@ -35,7 +47,10 @@ class AppointmentDetailViewModel(
         loadAppointmentDetail(appointmentId)
     }
 
-    // Función de mapeo de Entidad a Modelo
+    /**
+     * Mapea una entidad de base de datos a un modelo de presentación.
+     * Se utiliza para transformar la entidad en un objeto más adecuado para la presentación.
+     */
     private fun mapEntityToModel(entity: EntityAppointment?): ModelAppointment? {
         return entity?.let {
             ModelAppointment(
@@ -50,7 +65,10 @@ class AppointmentDetailViewModel(
         }
     }
 
-    // Función de mapeo de Modelo a Entidad
+    /**
+     * Mapea un modelo de presentación a una entidad de base de datos.
+     * Se utiliza para transformar el modelo en un objeto más adecuado para la base de datos.
+     */
     private fun mapModelToEntity(model: ModelAppointment?): EntityAppointment? {
         return model?.let {
             EntityAppointment(
