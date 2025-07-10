@@ -1,5 +1,6 @@
 package com.example.dogapp.newappointment
 
+// Importaciones necesarias para UI, binding, navegación y utilidades
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +16,22 @@ import androidx.navigation.fragment.findNavController
 import com.example.dogapp.R
 import com.example.dogapp.databinding.FragmentAppointmentNewBinding
 
+/**
+ * Fragmento para crear una nueva cita veterinaria.
+ * Gestiona el formulario de registro, validación de campos y comunicación con el ViewModel.
+ */
 class NewAppointmentFragment : Fragment() {
 
+    // ViewBinding para acceder a las vistas del layout de forma segura
     private var _binding: FragmentAppointmentNewBinding? = null
     private val binding get() = _binding!!
 
+    // ViewModel para manejar la lógica de registro de nuevas citas
     private val viewModel: NewAppointmentViewModel by viewModels()
 
+    /**
+     * Infla el layout del fragmento usando ViewBinding
+     */
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,15 +40,21 @@ class NewAppointmentFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Se ejecuta después de que la vista ha sido creada. Configura listeners y observadores.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupBreedAutoComplete()
-        setupSymptomsSpinner()
-        setupInputListeners()
-        observeViewModel()
-        setupClickListeners()
+        setupBreedAutoComplete()   // Configura autocompletado de razas
+        setupSymptomsSpinner()     // Configura el spinner de síntomas
+        setupInputListeners()      // Listeners para los campos de texto
+        observeViewModel()         // Observa cambios en el ViewModel
+        setupClickListeners()      // Configura los clicks de los botones
     }
 
+    /**
+     * Configura el campo de autocompletado para la raza usando la lista del ViewModel
+     */
     private fun setupBreedAutoComplete() {
         viewModel.breedList.observe(viewLifecycleOwner) { breeds ->
             val adapter = ArrayAdapter(
@@ -54,6 +70,9 @@ class NewAppointmentFragment : Fragment() {
             }
     }
 
+    /**
+     * Configura el spinner de síntomas usando los recursos del array
+     */
     private fun setupSymptomsSpinner() {
         ArrayAdapter.createFromResource(
             requireContext(),

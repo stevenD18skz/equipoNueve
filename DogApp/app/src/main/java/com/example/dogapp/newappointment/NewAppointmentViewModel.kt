@@ -1,5 +1,6 @@
 package com.example.dogapp.newappointment
 
+// Importaciones necesarias para ViewModel, LiveData, corrutinas y acceso a base de datos
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.dogapp.database.AppDatabase
@@ -10,6 +11,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+/**
+ * Función de extensión para combinar dos LiveData y producir un nuevo LiveData
+ * útil para validaciones o dependencias entre campos del formulario.
+ */
 fun <T, K, R> LiveData<T>.combineWith(
     liveData: LiveData<K>,
     block: (T?, K?) -> R
@@ -24,6 +29,10 @@ fun <T, K, R> LiveData<T>.combineWith(
     return result
 }
 
+/**
+ * ViewModel para el registro de nuevas citas veterinarias.
+ * Gestiona la lógica de validación, acceso a datos y comunicación con la UI.
+ */
 class NewAppointmentViewModel(
     application: Application
 ) : AndroidViewModel(application) {
@@ -31,19 +40,50 @@ class NewAppointmentViewModel(
     // Repositorio para interactuar con la base de datos
     private val repository: AppointmentRepository
 
-    // Campos del formulario
+    // Campos del formulario: cada uno es un LiveData editable
+    /**
+     * Nombre de la mascota.
+     * Valor inicial: cadena vacía.
+     */
     val petName = MutableLiveData<String>("")
+
+    /**
+     * Raza seleccionada.
+     * Valor inicial: cadena vacía.
+     */
     val breed = MutableLiveData<String>("")
+
+    /**
+     * Nombre del dueño.
+     * Valor inicial: cadena vacía.
+     */
     val ownerName = MutableLiveData<String>("")
+
+    /**
+     * Teléfono del dueño.
+     * Valor inicial: cadena vacía.
+     */
     val ownerPhone = MutableLiveData<String>("")
+
+    /**
+     * Síntoma seleccionado.
+     * Valor inicial: cadena vacía.
+     */
     val selectedSymptom = MutableLiveData<String>("")
 
-    // Lista de razas que ahora vendrá de la API
+    // Lista de razas obtenida desde la API
+    /**
+     * Lista de razas disponibles.
+     * Valor inicial: lista vacía.
+     */
     private val _breedList = MutableLiveData<List<String>>(emptyList())
     val breedList: LiveData<List<String>> = _breedList
 
-
     // Botón habilitado si los campos obligatorios no están vacíos
+    /**
+     * Indica si el botón de guardar está habilitado.
+     * Se habilita si todos los campos obligatorios tienen un valor no vacío.
+     */
     val isSaveButtonEnabled: LiveData<Boolean> = MediatorLiveData<Boolean>().apply {
         fun validate() {
             value = !petName.value.isNullOrBlank() &&
@@ -58,9 +98,11 @@ class NewAppointmentViewModel(
         validate()
     }
 
-
-
     // Eventos de UI
+    /**
+     * Indica si se debe mostrar un mensaje para seleccionar un síntoma.
+     * Valor inicial: falso.
+     */
     private val _showSelectSymptomMessage = MutableLiveData<Boolean>(false)
     val showSelectSymptomMessage: LiveData<Boolean> = _showSelectSymptomMessage
 
