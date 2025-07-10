@@ -90,9 +90,119 @@ Este proyecto se desarrolla como parte del Miniproyecto 1, aplicando los conocim
 
 El proyecto sigue el patrón de arquitectura MVVM y está organizado de la siguiente manera:
 
-      -
-      -
-      -
-      -
+├── app/
+│   └── src/
+│       ├── androidTest/
+│       │   └── java/
+│       │       └── com/
+│       │           └── example/
+│       │               └── dogapp/
+│       │                   └── ExampleInstrumentedTest.kt
+│       ├── main/
+│       │   └── java/
+│       │       └── com/
+│       │           └── example/
+│       │               └── dogapp/
+│       │                   ├── data/
+│       │                   │   └── remote/
+│       │                   │       ├── dto/
+│       │                   │       │   ├── DogImageResponse.kt
+│       │                   │       │   ├── DogCeoApiService.kt
+│       │                   │       │   └── RetrofitClient.kt
+│       │                   │       ├── DogCeoApiService.kt
+│       │                   │       └── RetrofitClient.kt
+│       │                   ├── database/
+│       │                   │   ├── dao/
+│       │                   │   │   └── AppointmentDao.kt
+│       │                   │   ├── entity/
+│       │                   │   │   ├── Appointment.kt
+│       │                   │   │   └── AppDatabase.kt
+│       │                   │   ├── detailappointment/
+│       │                   │   │   ├── DetailAppointmentFragment.kt
+│       │                   │   │   └── DetailAppointmentViewModel.kt
+│       │                   │   ├── editappointment/
+│       │                   │   │   ├── EditAppointmentFragment.kt
+│       │                   │   │   └── EditAppointmentViewModel.kt
+│       │                   ├── home/
+│       │                   │   ├── adapter/
+│       │                   │   │   └── AppointmentAdapter.kt
+│       │                   │   ├── HomeFragment.kt
+│       │                   │   └── HomeViewModel.kt
+│       │                   ├── login/
+│       │                   │   ├── LoginFragment.kt
+│       │                   │   └── LoginViewModel.kt
+│       │                   ├── model/
+│       │                   │   ├── Appointment.kt
+│       │                   │   └── BreedResponse.kt
+│       │                   ├── newappointment/
+│       │                   │   ├── NewAppointmentFragment.kt
+│       │                   │   └── NewAppointmentViewModel.kt
+│       │                   ├── repository/
+│       │                   │   └── AppointmentRepository.kt
+│       │                   └── MainActivity.kt
+│       │   └── res/
+│           ├── color/
+│           │   └── button_save_text_color_selector.xml
+│           ├── drawable/
+│           │   ├── button_save_background.xml
+│           │   ├── header_background.xml
+│           │   ├── ic_add.xml
+│           │   ├── ic_arrow_back_pink.xml
+│           │   ├── ic_delete.xml
+│           │   ├── ic_edit.xml
+│           │   ├── ic_pet_placeholder.jpg
+│           │   ├── ic_save.xml
+│           │   ├── img_dog_head.png
+│           │   ├── line_pink_separator.xml
+│           │   ├── rounded_square_button.xml
+│           │   ├── save_button_tint_selector.xml
+│           │   ├── spinner_background.xml
+│           │   └── toolbar_detail_background.xml
+│           ├── font/
+│           │   └── cool_font_bold.ttf
+│           ├── layout/
+│           │   ├── activity_main.xml
+│           │   ├── fragment_appointment_detail.xml
+│           │   ├── fragment_appointment_edit.xml
+│           │   ├── fragment_appointment_new.xml
+│           │   ├── fragment_home.xml
+│           │   ├── fragment_login.xml
+│           │   └── item_appointment.xml
+│           ├── mipmap-anydpi-v26/
+│           │   ├── ic_launcher.xml
+│           │   └── ic_launcher_round.xml
+│           ├── mipmap-hdpi/
+│           │   ├── ic_launcher.webp
+│           │   ├── ic_launcher_foreground.webp
+│           │   └── ic_launcher_round.webp
+│           ├── mipmap-mdpi/
+│           │   ├── ic_launcher.webp
+│           │   ├── ic_launcher_foreground.webp
+│           │   └── ic_launcher_round.webp
+│           ├── mipmap-xhdpi/
+│           │   ├── ic_launcher.webp
+│           │   ├── ic_launcher_foreground.webp
+│           │   └── ic_launcher_round.webp
+│           ├── mipmap-xxhdpi/
+│           │   ├── ic_launcher.webp
+│           │   ├── ic_launcher_foreground.webp
+│           │   └── ic_launcher_round.webp
+│           ├── mipmap-xxxhdpi/
+│           │   ├── ic_launcher.webp
+│           │   ├── ic_launcher_foreground.webp
+│           │   └── ic_launcher_round.webp
+│           ├── navigation/
+│           │   └── nav_graph.xml
+│           ├── raw/
+│           │   └── fingerprint_animation.json
+│           ├── values/
+│           │   ├── arrays.xml
+│           │   ├── colors.xml
+│           │   ├── dimens.xml
+│           │   ├── strings.xml
+│           │   └── themes.xml
+│           └── xml/
+│               ├── backup_rules.xml
+│               └── data_extraction_rules.xml
 
 ---
